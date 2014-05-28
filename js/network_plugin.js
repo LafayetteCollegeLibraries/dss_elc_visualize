@@ -1,0 +1,420 @@
+/**
+ * @author griffinj@lafayette.edu
+ * Easton Library Company Project
+ * A jQuery plug-in for the rendering of network analyses
+ *
+ */
+
+(function($) {
+
+    $.fn.renderNetwork = function(options) {
+
+	var options = $.extend({
+
+		target: 'div#network-visualize',
+		displayPersons: true,
+		displayBibItems: true,
+		displayOrgs: true,
+		variables: [],
+		
+	    }, options);
+
+	//var width = 680, height = 500;
+	var width = 800, height = 500;
+
+	var labelDistance = 0;
+
+	$(options.target).empty();
+	var vis = d3.select(options.target).append("svg:svg").attr("width", width).attr("height", height);
+
+	// Fixtures
+
+	/*
+	var personNodes = [
+
+			   // Persons
+    {label: 'Bachman, Abraham', type: 'human'},
+    {label: 'Arndt, Jacob', type: 'human'},
+    {label: 'Hassler, George', type: 'human'},
+    {label: 'Barnet, Eliza', type: 'human'},
+    {label: 'Dutton, William J.', type: 'human'},
+    {label: 'Deshler, George W. ', type: 'human'} ];
+
+	var bibItemNodes = [
+
+			    // Bib. Items
+    {label: 'book1', type: 'book'},
+    {label: 'book2', type: 'book'},
+    {label: 'periodical1', type: 'periodical'},
+    {label: 'periodical2', type: 'periodical'},
+    {label: 'artifact1', type: 'artifact'},
+    {label: 'artifact2', type: 'artifact'} ];
+
+	var nodes = [];
+
+	// Refactor
+	if(options.displayPersons) {
+
+	    nodes = nodes.concat(personNodes);
+	}
+	if(options.displayBibItems) {
+
+	    nodes = nodes.concat(bibItemNodes);
+	}
+
+	var personLinks = [
+
+    // Personal relationships
+    {source: 0,
+     target: 1,
+     weight: 1,
+     type: 'representative'},
+    {source: 1,
+     target: 2,
+     weight: 1,
+     type: 'shareholder'},
+    {source: 2,
+     target: 3,
+     weight: 1,
+     type: 'representative'},
+    {source: 2,
+     target: 4,
+     weight: 1,
+     type: 'parentOf'},
+    {source: 4,
+     target: 5,
+     weight: 1,
+     type: 'employeeOf'} ];
+
+	var bibItemLinks = [
+
+    // Bibliographic relationships
+    {source: 0,
+     target: 6,
+     weight: 1,
+     type: 'borrowedFor'},
+    {source: 1,
+     target: 6,
+     weight: 1,
+     type: 'borrowedFor'},
+    {source: 2,
+     target: 8,
+     weight: 1,
+     type: 'borrowedBy'},
+    {source: 2,
+     target: 9,
+     weight: 1,
+     type: 'borrowedFor'} ];
+	*/
+
+    /**
+     * Organizational membership is an anomalous case
+     * Nodes for organizations (i. e. families, churches, businesses...) are not, themselves, visualized
+     * Instead, sets of links are generated with unique types generated for the organization
+     *
+     * For every organization, an arbitrary node be selected for the construction of paths
+     * Whether or not this node should be arbitrarily chosen carries implications for the data as JSON/CSV/TSV
+     *
+     */
+
+	/*
+	var orgLinks = [
+
+			// Organizational relationships
+    {source: 4,
+     target: 5,
+     weight: 1,
+     type: 'businessAMembership'},
+    {source: 4,
+     target: 4,
+     weight: 1,
+     type: 'familyAMembership'},
+    {source: 0,
+     target: 3,
+     weight: 1,
+     type: 'churchAMembership'},
+    {source: 1,
+     target: 3,
+     weight: 1,
+     type: 'churchAMembership'} ];
+
+	var links = [];
+
+	// Refactor
+	if(options.displayPersons) {
+
+	    links = links.concat(personLinks);
+	}
+	if(options.displayBibItems) {
+
+	    links = links.concat(bibItemLinks);
+	}
+	if(options.displayOrgs) {
+	    
+	    links = links.concat(orgLinks);
+	}
+	*/
+
+	nodes = options.data.data.nodes;
+	links = options.data.data.links;
+
+	// https://github.com/mbostock/d3/pull/1138#issuecomment-19918150
+	// This prepends a unique character to each string (register bug)
+
+	// Instead: https://github.com/mbostock/d3/pull/1138#issuecomment-14803826
+
+	// Map each node type to a color
+	nodeColors = d3.scale.category20b()
+	.domain(d3.scale.ordinal()
+		.domain( nodes.map(function(d) { return d.type }) ).domain());
+
+	// Map each link type to a color
+	linkColors = d3.scale.category20c()
+	.domain(d3.scale.ordinal()
+		.domain( links.map(function(d) { return d.type }) ).domain());
+
+	var labelAnchors = [];	
+	var labelAnchorLinks = [];
+
+	var force = d3.layout.force().size([width, height]).nodes(nodes)
+	.links(links)
+	.gravity(1)
+	//.linkDistance(50 + (0.7 * links.length))
+	//.linkDistance(64 * links.length)
+	.linkDistance(48 + 8 * links.length)
+	.charge(-3000)
+	.linkStrength(function(link) {
+
+		return link.weight * 10
+	    });
+
+	force.start();
+
+	var force2 = d3.layout.force().nodes(labelAnchors).links(labelAnchorLinks).gravity(0).linkDistance(0).linkStrength(8).charge(-100).size([width, height]);
+	force2.start();
+
+	/**
+	 * Render the edges for the directed graph
+	 */
+	var link = vis.selectAll("line.link").data(links).enter()
+	.append("svg:line")
+	.attr("class", "link")
+	.style("stroke", function(d) {
+
+		return linkColors(d.type);
+	    });
+
+	/**
+	 * Render the nodes for the directed graph
+	 */
+	var node = vis.selectAll("g.node").data(force.nodes()).enter().append("svg:g").attr("class", "node");
+
+	// Render the circles...
+	node.append("svg:circle")
+	.attr("r", 5)
+	.style("fill", function(d) {
+
+		return nodeColors(d.type);
+	    })
+	.style("stroke", "#FFF")
+	.style("stroke-width", 3);
+	
+	// ...and append the text...
+	node.append("svg:text").text(function(d) {
+
+		return d.label
+		    })
+	.attr("x", 4)
+	.attr("y", -3)
+	.style("fill", "#555")
+	.style("stroke", "#555")
+	.style("stroke-width", 0.3)
+	.style("font-family", "Arial")
+	.style("font-size", 12);
+
+	/**
+	 * Initialize the force animation for the nodes
+	 */
+	node.call(force.drag);
+
+	/*
+	var anchorLink = vis.selectAll("line.anchorLink").data(labelAnchorLinks).enter().append("svg:line").attr("class", "anchorLink").style("stroke", "#999");
+
+	var anchorNode = vis.selectAll("g.anchorNode").data(force2.nodes()).enter().append("svg:g").attr("class", "anchorNode");
+	anchorNode.append("svg:circle").attr("r", 0).style("fill", "#FFF");
+	anchorNode.append("svg:text").text(function(d, i) {
+
+		return i % 2 == 0 ? "" : d.node.label
+
+		    }).style("fill", "#555").style("font-family", "Arial").style("font-size", 12);
+	*/
+
+	/**
+	 * Link animation
+	 */
+	var updateLink = function() {
+	    this.attr("x1", function(d) {
+		    return d.source.x;
+		}).attr("y1", function(d) {
+			return d.source.y;
+		    }).attr("x2", function(d) {
+			    return d.target.x;
+			}).attr("y2", function(d) {
+				return d.target.y;
+			    });
+	};
+
+	/**
+	 * Node animation
+	 */
+	var updateNode = function() {
+	    this.attr("transform", function(d) {
+		    return "translate(" + d.x + "," + d.y + ")";
+		});
+	};
+
+
+	force.on("tick", function() {
+
+		force2.start();
+
+		node.call(updateNode);
+
+		/*
+		anchorNode.each(function(d, i) {
+			if(i % 2 == 0) {
+			    d.x = d.node.x;
+			    d.y = d.node.y;
+			} else {
+			    var b = this.childNodes[1].getBBox();
+
+			    var diffX = d.x - d.node.x;
+			    var diffY = d.y - d.node.y;
+
+			    var dist = Math.sqrt(diffX * diffX + diffY * diffY);
+
+			    var shiftX = b.width * (diffX - dist) / (dist * 2);
+			    shiftX = Math.max(-b.width, Math.min(0, shiftX));
+			    var shiftY = 5;
+			    this.childNodes[1].setAttribute("transform", "translate(" + shiftX + "," + shiftY + ")");
+			}
+		    });
+		    
+		anchorNode.call(updateNode);
+		*/
+
+		link.call(updateLink);
+		//anchorLink.call(updateLink);
+		
+	    });
+
+	// This must remain a constant mapping for RDF types
+	legendLabels = {
+
+	    human: 'Person',
+	    Representative: 'Representative',
+	    Shareholder: 'Shareholder',
+	    book: 'Book',
+	    periodical: 'Periodical',
+	    artifact: 'Other Item',
+
+	    representative: 'Representative of',
+	    shareholder: 'Shareholder of',
+
+	    parentOf: 'Parent of',
+	    employeeOf: 'Employee of',
+
+	    borrowedFor: 'Borrowed for',
+	    borrowedBy: 'Borrowed by',
+
+	    businessAMembership: 'Members of Business A',
+	    familyAMembership: 'Members of Family A',
+	    churchAMembership: 'Members of Church A',
+
+	    components: 'Network Components',
+	    avgClustering: 'Average Clustering Coefficient'
+	};
+
+	var nodeLegend = vis.selectAll(".nodeLegend")
+	.data(nodeColors.domain())
+	.enter().append("g")
+	.attr("class", "nodeLegend")
+	.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+	    
+	nodeLegend.append("rect")
+	.attr("x", width - 18)
+	.attr("width", 18)
+	.attr("height", 18)
+	.style("fill", nodeColors);
+	    
+	nodeLegend.append("text")
+	.attr("x", width - 24)
+	.attr("y", 9)
+	.attr("dy", ".35em")
+	.style("text-anchor", "end")
+	.text(function(d) {
+
+		return legendLabels[d];
+	    });
+
+	// Refactor
+	var linkLegend = vis.selectAll(".linkLegend")
+	.data(linkColors.domain())
+	.enter().append("g")
+	.attr("class", "linkLegend")
+	.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+	linkLegend.append("rect")
+	.attr("x", width / (0.5 * linkColors.domain().length) + 8)
+	.attr("y", height - (21 * linkColors.domain().length))
+	.attr("width", 18)
+	.attr("height", 18)
+	.style("fill", linkColors);
+	linkLegend.append("text")
+	.attr("x", width / (0.5 * linkColors.domain().length))
+	.attr("y", height - (20 * linkColors.domain().length))
+	.attr("dy", ".35em")
+	.style("text-anchor", "end")
+	.text(function(d) {
+		return legendLabels[d];
+	    });
+
+	// The network metrics
+	metrics = {
+
+		   components: 2,
+		   avgClustering: 0.123
+	};
+
+	metricsColors = d3.scale.category10().domain(d3.keys(metrics));
+
+	var metricsLegend = vis.selectAll(".metricsLegend")
+	.data(metricsColors.domain())
+	.enter().append("g")
+	.attr("class", "metricsLegend")
+	.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+	metricsLegend.append("text")
+	.attr("x", width)
+	.attr("y", height - (20 * metricsColors.domain().length))
+	.attr("dy", ".35em")
+	.style("text-anchor", "end")
+	.style("fill", metricsColors)
+	.text(function(d) {
+
+		return legendLabels[d] + ': ' + metrics[d];
+	    });
+    };
+
+
+    $.fn.elcNetworkMetrics = function(options) {
+
+	// This is the easiest way to have default options.
+	var settings = $.extend({
+
+		target: 'div#network-visualize',
+	    }, options);
+
+	return this.each(function(i, element) {
+		
+	    });
+    };
+}(jQuery));

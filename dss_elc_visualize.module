@@ -1,0 +1,322 @@
+<?php
+
+require_once dirname(__FILE__) . '/includes/blocks.inc';
+
+/**
+ *
+ * Retrieve the bundles being visualized
+ * Integrate with an administrative menu
+ *
+*/
+function dss_elc_visualize_get_bundles() {
+
+  return array('human' => 'People',
+	       'book' => 'Books',
+	       'periodical' => 'Periodicals',
+	       'item' => 'Collection Items',
+	       );
+}
+
+/**
+ *
+ * Retrieve the fields for a bundle being visualized
+ * Integrate with an administrative menu
+ *
+*/
+function dss_elc_visualize_get_fields($bundle) {
+
+  $fields = array('human' => array(
+				   'field_human_gender' => 'Gender',
+				   'field_human_occupation' => 'Occupation',
+				   'field_person_membership' => 'Membership',
+				   'field_person_location' => 'Location',
+				   'field_person_type' => 'Type',
+				   ),
+
+		  'book' => array('field_artifact_was_authored_by' => 'Authors',
+				  'field_item_subject' => 'Subject',
+				  'field_item_format' => 'Format'
+				  ),
+
+		  'periodical' => array('field_artifact_was_authored_by' => 'Authors',
+					'field_item_subject' => 'Subject',
+					'field_item_format' => 'Format'
+					),
+
+		  'item' => array('field_artifact_was_authored_by' => 'Authors',
+				  'field_item_subject' => 'Subject',
+				  'field_item_format' => 'Format'
+				  ),
+		  );
+
+  return $fields[$bundle];
+}
+
+/**
+ * Retrieve the fields for a bundle being visualized
+ * Integrate with an administrative menu
+ *
+*/
+function dss_elc_visualize_get_related_entities($default_bundle) {
+
+  $default_relations = array('Human',
+			     'Organization',
+			     'Book',
+			     'Periodical',
+			     'Item',
+			     );
+
+  $min_relations = array(t('human'),
+			 t('organization'));
+
+  $related_entities = array('human' => $default_relations,
+			    'book' => $min_relations,			    
+			    'periodical' => $min_relations,			    
+			    'item' => $min_relations);
+
+  return $related_entities[$default_bundle];
+}
+
+/**
+ * Implements hook_page_alter()
+ *
+ * Visualizations for individual pages
+ * Refactor into blocks
+ *
+ */
+function dss_elc_visualize_page_alter(&$page) {
+
+  // For the network visualizations
+  drupal_add_css('
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+}', array('type' => 'inline'));
+
+  // For the tutorial
+  drupal_add_css('
+
+/*
+.chart div {
+
+font: 10px sans-serif;
+background-color: steelblue;
+text-align: right;
+padding: 3px;
+margin: 1px;
+color: white;
+}
+*/
+
+.chart rect {
+
+stroke: white;
+fill: steelblue;
+}', array('type' => 'inline'));
+
+  // For the chart visualizations
+  drupal_add_css('
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.bar {
+  fill: steelblue;
+  fill-opacity: .9;
+}
+
+.x.axis path {
+  display: none;
+}
+
+label {
+  top: 10px;
+  right: 10px;
+}
+
+.bar:hover {
+
+cursor: pointer;
+}
+
+.d3-tip {
+
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #F6F4B8;
+  border-radius: 2px;
+}
+
+.d3-tip ul {
+
+list-style-type: none;
+}
+
+.d3-tip ul li span {
+
+color: #ffffff;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+div.visualize-legend {
+
+position:absolute;
+}
+
+div.visualize-axis-y {
+
+position:absolute;
+}
+
+.path-highlighted {
+
+stroke-width: 4;
+}
+
+rect.legend-key {
+
+cursor: pointer;
+}
+
+#bivariate-metrics-container {
+
+  width: 256px;
+}
+
+.metrics-legend {
+
+  line-height: 1;
+  font-weight: bold;
+  /* padding: 12px; */
+  background: rgba(0, 0, 0, 0.8);
+  color: #F6F4B8;
+  border-radius: 2px;
+}
+', array('type' => 'inline'));
+
+  drupal_add_css(drupal_get_path('module', 'dss_elc') . '/css/node.css');
+}
+
+/**
+ * Implements hook_views_post_render
+ * Include the necessary JavaScript widgets for data visualization for Views
+ *
+ */
+function dss_elc_views_post_render(&$view, &$output, &$cache) {
+
+  // Append the D3 visualization plug-ins for the Views
+  switch($view->name) {
+
+  case 'loans':
+
+    //drupal_add_js(drupal_get_path('module', 'dss_elc') . '/js/scatterVisualize.js');
+    drupal_add_js(array('dssElcBivariateVisualize' => array(
+							    'contentTypes' => array('loan'),
+							    'measures' => array('value', 'total'),
+							    'fields' => array('field_loan_duration', 'field_loan_volumes_loaned'),
+							    'analysis' => 'bivariate')), 'setting');
+    
+    break;
+
+  case 'people':
+
+    break;
+
+  case 'items':
+
+    drupal_add_js(drupal_get_path('module', 'dss_elc') . '/js/qtyRelsVisualize.js');
+    drupal_add_js(array('dssElcQtyRelsVisualize' => array(
+							  'contentTypes' => array('book', 'periodical', 'item'),
+							  'field' => 'field_item_format',
+							  'measures' => array('total'))), 'setting');
+
+    break;
+
+  default:
+    break;
+  }
+}
+
+/**
+ * Implements template_preprocess_page()
+ * Integrate the necessary JavaScript widgets necessary for specific Content Types of Nodes
+ *
+ */
+function dss_elc_visualize_preprocess_page(&$variables) {
+
+  /*
+  drupal_add_js("http://cdnjs.cloudflare.com/ajax/libs/d3/3.2.2/d3.v3.min.js", 'external');
+  drupal_add_js("http://cdnjs.cloudflare.com/ajax/libs/nvd3/1.0.0-beta/nv.d3.min.js", 'external');
+
+  // D3 tooltips
+  drupal_add_js("http://labratrevenge.com/d3-tip/javascripts/d3.tip.min.js", 'external');
+  */
+
+  // d3-tip.min.js  d3.v3.min.js  nv.d3.min.js
+
+  drupal_add_js("/sites/all/libraries/d3/d3.v3.min.js");
+  drupal_add_js("/sites/all/libraries/d3/nv.d3.min.js");
+  drupal_add_js("/sites/all/libraries/d3/d3-tip.min.js");
+
+  drupal_add_js("/sites/all/libraries/colorbrewer/colorbrewer.js");
+
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/grouped_bar_chart.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/scatterplot.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/linear_chart.js');
+
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/q_analysis.js');
+
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate_plugin.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate.js');
+  
+
+  if(isset($variables['node'])) {
+
+    switch($variables['node']->type) {
+      
+    case 'human':
+
+      drupal_add_js(drupal_get_path('module', 'dss_elc') . '/js/visualize.js');
+      drupal_add_js(array('dssElcPersRelsVisualize' => array('nid' => $variables['node']->nid)), 'setting');
+      drupal_add_js(array('dssElcBibRelsVisualize' => array('nid' => $variables['node']->nid)), 'setting');
+      break;
+    
+    }
+  }
+}

@@ -25,7 +25,7 @@ function dss_elc_visualize_blocks() {
 				     'class' => NULL,
 				     'function' => NULL,
 				     'form' => 'dss_elc_visualize_bivariate_form',
-				     ),
+				    ),
 	       'network' => array(
 				  'name' => t('Easton Library Company Network Analysis'),
 				  'module' => 'dss_elc_visualize',
@@ -555,10 +555,13 @@ function dss_elc_visualize_network_form($form, &$form_state) {
    */
 
   // To be extended
+
+  $min = 1;
+  $max = 32;
   $form['network_metrics']['limit'] = array('#title' => 'Max. Nodes',
 					    '#type' => 'slider',
-					    //'#default_value' => 1,
-					    '#default_value' => array('value' => 1, 'value2' => 32),
+					    //'#default_value' => $min,
+					    '#default_value' => array('value' => $min, 'value2' => $max),
 					    '#slider_style' => '#6E664F',
 					    //'#range' => 'min',
 					    '#range' => TRUE,
@@ -572,8 +575,8 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 					    '#max' => 500.50476,
 					    '#step' => 259.20000,
 					    */
-					    '#min' => 1,
-					    '#max' => 32,
+					    '#min' => $min,
+					    '#max' => $max,
 					    '#step' => 1,
 					    //'#display_bubble' => TRUE,
 					    //'#display_bubble_format' => '$%{value}%',
@@ -582,6 +585,7 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 					    '#display_inputs' => FALSE,
 					    //'#display_values' => TRUE,
 					    '#slider_length' => '100px',
+					    '#suffix' => '<div class="ui-slider-legend"><span class="ui-slider-legend-min">' . $min . '</span><span class="ui-slider-legend-max">' . $max . '</span></div>',
 					    );
 
 					    /*
@@ -598,7 +602,6 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 					    '#size' => 4,
 					    );
 					    */
-
 
   // Depending upon the related nodes, offer the option to filter the visualization
   $related_entities = dss_elc_visualize_get_related_entities($defaultBundle);

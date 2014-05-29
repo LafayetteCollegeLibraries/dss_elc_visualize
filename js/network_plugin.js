@@ -155,6 +155,18 @@
 	}
 	*/
 
+	/**
+	 * For testing
+	 */
+	var testingOptions = {};
+	testingOptions.data = {"data":{
+		"nodes":[
+	{"label":"Arndt, George Washington","type":"human"},
+	{"label":"Fashionable follies","type":"book"},
+	{"label":"Account of expeditions to the sources of the Mississippi","type":"book"},{"label":"Memoirs of the war in the Southern department of the United States","type":"book"},{"label":"Spectator","type":"book"},{"label":"Narrative of the extraordinary adventures and sufferings by shipwreck","type":"book"},{"label":"Select reviews of literature","type":"book"},{"label":"Miscellaneous works","type":"book"},{"label":"History of the reign of Emperor Charles V","type":"book"},{"label":"Travels in Switzerland and in the country of the Grisons","type":"book"},{"label":"American museum","type":"book"},{"label":"Historical, geographical, and philosophical view of the Chinese empire","type":"book"},{"label":"Zeluco","type":"book"},{"label":"Female biography","type":"book"},{"label":"Law of nations","type":"book"},{"label":"Tales of real life","type":"book"},{"label":"Kelroy","type":"book"},{"label":"Maid of the hamlet","type":"book"},{"label":"Wonders of the little world","type":"book"}],
+
+		"links":[{"source":0,"target":1,"weight":1,"type":"borrowedBy"},{"source":0,"target":2,"weight":1,"type":"borrowedBy"},{"source":0,"target":3,"weight":1,"type":"borrowedBy"},{"source":0,"target":4,"weight":1,"type":"borrowedBy"},{"source":0,"target":5,"weight":1,"type":"borrowedBy"},{"source":0,"target":6,"weight":7,"type":"borrowedBy"},{"source":0,"target":7,"weight":1,"type":"borrowedBy"},{"source":0,"target":8,"weight":3,"type":"borrowedBy"},{"source":0,"target":9,"weight":3,"type":"borrowedBy"},{"source":0,"target":10,"weight":1,"type":"borrowedBy"},{"source":0,"target":11,"weight":1,"type":"borrowedBy"},{"source":0,"target":12,"weight":1,"type":"borrowedBy"},{"source":0,"target":13,"weight":1,"type":"borrowedBy"},{"source":0,"target":14,"weight":1,"type":"borrowedBy"},{"source":0,"target":15,"weight":1,"type":"borrowedBy"},{"source":0,"target":16,"weight":1,"type":"borrowedBy"},{"source":0,"target":17,"weight":1,"type":"borrowedBy"},{"source":0,"target":18,"weight":1,"type":"borrowedBy"}]},"metadata":[]};
+
 	nodes = options.data.data.nodes;
 	links = options.data.data.links;
 
@@ -176,20 +188,33 @@
 	var labelAnchors = [];	
 	var labelAnchorLinks = [];
 
-	var force = d3.layout.force().size([width, height]).nodes(nodes)
+	/*
+	  	.linkStrength(function(link) {
+
+		return link.weight * 10
+		//return link.weight * 5
+	    })
+	*/
+
+	var force = d3.layout.force()
+	.size([width, height])
+	.nodes(nodes)
 	.links(links)
 	.gravity(1)
 	//.linkDistance(50 + (0.7 * links.length))
 	//.linkDistance(64 * links.length)
-	.linkDistance(48 + 8 * links.length)
-	.charge(-3000)
-	.linkStrength(function(link) {
+	.linkDistance(128 + 8 * links.length)
+	//.linkDistance(64 + 8 * links.length)
+	//.linkDistance(48 + 8 * links.length)
+	//.linkDistance(32 + 1 * links.length)
+	//.charge(-3000)
+	.charge(-1200)
+	.start();
 
-		return link.weight * 10
-	    });
-
-	force.start();
-
+	/**
+	 * Force for the actual labels
+	 *
+	 */
 	var force2 = d3.layout.force().nodes(labelAnchors).links(labelAnchorLinks).gravity(0).linkDistance(0).linkStrength(8).charge(-100).size([width, height]);
 	force2.start();
 
@@ -217,7 +242,9 @@
 		return nodeColors(d.type);
 	    })
 	.style("stroke", "#FFF")
-	.style("stroke-width", 3);
+	.style("stroke-width", 3)
+	.attr('class', function(d, i) { return 'node-' + d.type; }) // Append the classes to the appropriate nodes
+	.attr('id', function(d, i) { return 'node-' + d.type + '-' + i; }); // Append the id for each node
 	
 	// ...and append the text...
 	node.append("svg:text").text(function(d) {

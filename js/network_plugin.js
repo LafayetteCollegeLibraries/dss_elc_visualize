@@ -236,9 +236,18 @@
 	 */
 	var node = vis.selectAll("g.node").data(force.nodes()).enter().append("svg:g").attr("class", "node");
 
-	// Render the circles...
+	// Render the nodes
 	node.append("svg:circle")
-	.attr("r", 5)
+	.attr("r", function(d) { // Node size should reflect the type of nodes (organizational persons are larger than human persons)
+
+		/** @todo Refactor */
+		if(d.type == 'Church') {
+
+		    return 10;
+		}
+
+		return 5;
+	    })
 	.style("fill", function(d) {
 
 		return nodeColors(d.type);
@@ -346,11 +355,19 @@
 	    Shareholder: 'Shareholder',
 
 	    /**
+	     * Fixture data for socioeconomic relationships
+	     * @todo Review and finalize
+	     */
+	    Employee: 'Employee',
+	    Servant: 'Servant',
+
+	    /**
 	     * Fixture data for familial relationships
 	     * @todo Review and finalize
 	     */
 	    Parent: 'Parent',
 	    Child: 'Child',
+	    Sibling: 'Sibling',
 
 	    /**
 	     * Fixture data for organizational relationships
@@ -371,6 +388,7 @@
 	     */
 	    isParentOf: 'Parent of',
 	    isChildOf: 'Child of',
+	    isSiblingOf: 'Sibling of',
 
 	    /**
 	     * Fixture data for organizational relationships
@@ -378,7 +396,12 @@
 	     */
 	    isMemberOf: 'Member of',
 
-	    employeeOf: 'Employee of',
+	    /**
+	     * Fixture data for socioeconomic relationships
+	     * @todo Review and finalize
+	     */
+	    hasEmployee: 'Employee of',
+	    hasServant: 'Servant of',
 
 	    borrowedFor: 'Borrowed for',
 	    borrowedBy: 'Borrowed by',

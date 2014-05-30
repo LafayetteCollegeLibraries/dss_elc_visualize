@@ -25,8 +25,9 @@
 	     */
 	    var sliderHandler = function(e) {
 
-		var max, legendMin, legendMax;
+		var legendMin, legendMax;
 		var min = $('#edit-limit-container').slider("option", "min");
+		var max = $('#edit-limit-container').slider("option", "max");
 
 		/** @todo Refactor, magic numbers */
 		if($('#edit-bundle').val() == 'loan') {
@@ -39,10 +40,11 @@
 		    legendMax = new Date(max).getFullYear();
 		} else {
 
-		    if(min > 1000) {
+		    if(min < 1000) {
 
 			min = 1;
-			max = max / -103544437500;
+			//max = max / -103544437500;
+			max = 32;
 		    }
 
 		    legendMin = min;
@@ -68,6 +70,10 @@
 
 	    $networkMetricsButton.click(function(event) {
 
+		    /**
+		     * @todo Refactor with once()
+		     */
+		    event.stopImmediatePropagation();
 		    event.preventDefault();
 
 		    $fieldSelect = $('form#dss-elc-visualize-network-form').find('select#edit-field');

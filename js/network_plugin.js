@@ -223,8 +223,10 @@
 	 */
 	var link = vis.selectAll("line.link").data(links).enter()
 	.append("svg:line")
-	.attr("class", "link")
-	.style("stroke", function(d) {
+	.attr("class", function(d) { // Append classes specific to types of relationships
+
+		return 'link link-' + d.type;
+	    }).style("stroke", function(d) {
 
 		return linkColors(d.type);
 	    });
@@ -339,8 +341,23 @@
 	legendLabels = {
 
 	    human: 'Person',
+
 	    Representative: 'Representative',
 	    Shareholder: 'Shareholder',
+
+	    /**
+	     * Fixture data for familial relationships
+	     * @todo Review and finalize
+	     */
+	    Parent: 'Parent',
+	    Child: 'Child',
+
+	    /**
+	     * Fixture data for organizational relationships
+	     * @todo Review and finalize
+	     */
+	    Church: 'Church',
+
 	    book: 'Book',
 	    periodical: 'Periodical',
 	    artifact: 'Other Item',
@@ -348,7 +365,19 @@
 	    representative: 'Representative of',
 	    shareholder: 'Shareholder of',
 
-	    parentOf: 'Parent of',
+	    /**
+	     * Fixture data for familial relationships
+	     * @todo Review and finalize
+	     */
+	    isParentOf: 'Parent of',
+	    isChildOf: 'Child of',
+
+	    /**
+	     * Fixture data for organizational relationships
+	     * @todo Review and finalize
+	     */
+	    isMemberOf: 'Member of',
+
 	    employeeOf: 'Employee of',
 
 	    borrowedFor: 'Borrowed for',

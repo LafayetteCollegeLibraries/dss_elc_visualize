@@ -23,14 +23,14 @@
 			$fieldSelect = $('div#bundle-fields-div div div select.form-select');
 		    }
 
-		    //$.post('/univariate', $('form#dss-elc-visualize-univariate-form').serialize(), function(data, textStatus) {
-		    if(true) {
+		    $.post('/metrics/univariate', $('form#dss-elc-visualize-univariate-form').serialize(), function(data, textStatus) {
+		    //if(true) {
 			
 			// Refactor into a dssElcMetrics plug-in
-			//$univariateButton.renderUnivariate({data: data});
-			
-			// Fixture
+			$univariateButton.univariateRender({data: data});
 
+			/*
+			// Fixture
 			data = {
 			    data : [
 
@@ -47,7 +47,10 @@
 			// Refactor
 			//$univariateButton.dss.elc.metrics.render({data: data});
 			$univariateButton.univariateRender({data: data});
-		    }
+			*/
+
+			//}
+			});
 		});
 	}
     };

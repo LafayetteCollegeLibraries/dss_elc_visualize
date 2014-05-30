@@ -51,8 +51,6 @@
 
 	    }, options);
 
-
-
 	/**
 	 * @author griffinj
 	 * The Drupal service simply returns the summation, regardless of our metrics
@@ -119,38 +117,26 @@
 		.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	    //var ageNames = d3.keys(data[0]).filter(function(key) { return key !== "State"; });
-
-	    /*
-	    data.forEach(function(d) {
-		    
-		    d.ages = ageNames.map(function(name) { return {name: name, value: +d[name]}; });
-		});
-	    */
-
-	    //x0.domain(data.map(function(d) { return d.State; }));
-	    //x1.domain(ageNames).rangeRoundBands([0, x0.rangeBand()]);
-	    //y.domain([0, d3.max(data, function(d) { return d3.max(d.ages, function(d) { return d.value; }); })]);
-
-	    // Set the 
-
-	    /*
-	    initKey = Object.keys(data.ordinal.domain)[0];
-	    x0.domain(data.ordinal.domain[initKey]);
-	    */
-
-	    // Refactor
+	    /**
+	     *
+	     * @todo Refactor for the labeling of metrics
+	     *
+	     */
 	    legendLabels = {
 
 	        components: 'Network Components',
 		avgClustering: 'Average Clustering Coefficient',
 
 		sample: 'Sample',
-		aMean: "x\u0304",
-		median: 'x\u0303',
+		//aMean: "x\u0304",
+		aMean: "Mean",
+		//median: 'x\u0303',
+		median: 'Median',
 		mode: 'Mode',
-		kurtosisPearson: "β\u2082",
-		kurtosisFisher: "γ\u2081",
+		//kurtosisPearson: "β\u2082",
+		kurtosisPearson: "Kurtosis",
+		//kurtosisFisher: "γ\u2081",
+		kurtosisFisher: "Kurtosis (Fisher)",
 		distribution: 'Distribution'
 	    };
 
@@ -199,7 +185,7 @@
 	    y.domain([0, d3.max(data, function(d) {
 
 			    return d3.max(d.values, function(d) {
-				
+				    
 				    return d.value })
 				})
 		    ]);

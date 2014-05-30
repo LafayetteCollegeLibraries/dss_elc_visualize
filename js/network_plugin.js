@@ -372,7 +372,11 @@
 	.attr("x", width - 18)
 	.attr("width", 18)
 	.attr("height", 18)
-	.style("fill", nodeColors);
+	.style("fill", nodeColors)
+	.attr('class', function(d) { /** Append the appropriate class(es) for the legend key @todo Refactor for color mapping */
+
+		return 'nodeLegend' + legendLabels[d];
+	    });
 	    
 	nodeLegend.append("text")
 	.attr("x", width - 24)
@@ -396,6 +400,7 @@
 	.attr("width", 18)
 	.attr("height", 18)
 	.style("fill", linkColors);
+
 	linkLegend.append("text")
 	.attr("x", width / (0.5 * linkColors.domain().length))
 	.attr("y", height - (20 * linkColors.domain().length))

@@ -325,12 +325,12 @@ function dss_elc_visualize_univariate_form($form, &$form_state) {
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate.js');
 
   $form['univariate'] = array(
-				'#prefix' => '<div id="univariate-visualize"></div>',
-				'#type' => 'container',
-				'#attributes' => array(
-						       'class' => array('container-inline')
-						       )
-				);
+			      '#prefix' => '<div id="univariate-visualize-legend" class="visualize-legend"><div id="univariate-visualize-legend-samples"></div><div id="univariate-visualize-legend-metrics"></div></div><div id="univariate-visualize-axis-y" class="visualize-axis-y"></div><div id="univariate-visualize"></div>',
+			      '#type' => 'container',
+			      '#attributes' => array(
+						     'class' => array('container-inline')
+						     )
+			      );
 
   $univariate = variable_get('univariate', array());
   $defaultBundle = !empty($univariate['bundle']) ? $univariate['bundle'] : 'human';

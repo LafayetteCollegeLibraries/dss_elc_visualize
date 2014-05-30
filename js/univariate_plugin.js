@@ -16,6 +16,8 @@
 	var settings = $.extend({
 
 		target: 'div#univariate-visualize',
+		yAxis: 'div#univariate-visualize-axis-y',
+		sampleLegend: 'div#univariate-visualize-legend-samples',
 		maxDomainGroups: 5,
 	    }, options);
 

@@ -362,6 +362,8 @@ function dss_elc_visualize_univariate_form($form, &$form_state) {
 					  '#type' => 'submit',
 					  '#value' => t('View the Data')
 					  );
+
+  $form['actions']['#type'] = 'actions';
   return $form;
 }
 
@@ -479,6 +481,8 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 					  '#type' => 'submit',
 					  '#value' => t('View the Data')
 					  );
+
+  $form['actions']['#type'] = 'actions';
   return $form;
 }
 
@@ -631,5 +635,6 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 					     '#value' => t('Generate')
 					     );
 
+  $form['actions']['#type'] = 'actions';
   return $form;
 }

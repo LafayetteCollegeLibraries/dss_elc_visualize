@@ -414,6 +414,39 @@
 	    avgClustering: 'Average Clustering Coefficient'
 	};
 
+	/**
+	 * Render linkLegend
+	 *
+	 */
+	var linkLegend = vis.selectAll(".linkLegend")
+	.data(linkColors.domain())
+	.enter().append("g")
+	.attr("class", "linkLegend")
+	.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+	linkLegend.append("rect")
+	//.attr("x", width / (0.5 * linkColors.domain().length) + 8)
+	.attr("x", width / (0.5 * linkColors.domain().length) + 8 - 164)
+	//.attr("y", height - (21 * linkColors.domain().length))
+	.attr("y", linkColors.domain().length - 6)
+	.attr("width", 18)
+	.attr("height", 18)
+	.style("fill", linkColors);
+
+	linkLegend.append("text")
+	//.attr("x", width / (0.5 * linkColors.domain().length))
+	.attr("x", width / (0.5 * linkColors.domain().length) - 164)
+	//.attr("y", height - (20 * linkColors.domain().length))
+	.attr("y", linkColors.domain().length + 2)
+	.attr("dy", ".35em")
+	.style("text-anchor", "end")
+	.text(function(d) {
+		return legendLabels[d];
+	    });
+
+	/**
+	 * Render nodeLegend
+	 *
+	 */
 	var nodeLegend = vis.selectAll(".nodeLegend")
 	.data(nodeColors.domain())
 	.enter().append("g")
@@ -440,28 +473,6 @@
 		return legendLabels[d];
 	    });
 
-	// Refactor
-	var linkLegend = vis.selectAll(".linkLegend")
-	.data(linkColors.domain())
-	.enter().append("g")
-	.attr("class", "linkLegend")
-	.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-	linkLegend.append("rect")
-	.attr("x", width / (0.5 * linkColors.domain().length) + 8)
-	.attr("y", height - (21 * linkColors.domain().length))
-	.attr("width", 18)
-	.attr("height", 18)
-	.style("fill", linkColors);
-
-	linkLegend.append("text")
-	.attr("x", width / (0.5 * linkColors.domain().length))
-	.attr("y", height - (20 * linkColors.domain().length))
-	.attr("dy", ".35em")
-	.style("text-anchor", "end")
-	.text(function(d) {
-		return legendLabels[d];
-	    });
-
 	// The network metrics
 	metrics = {
 
@@ -471,6 +482,12 @@
 
 	metricsColors = d3.scale.category10().domain(d3.keys(metrics));
 
+	/**
+	 * Disabled in compliance with EDDC-213
+	 * @todo Identify where best to render the network metrics
+	 *
+	 */
+	/*
 	var metricsLegend = vis.selectAll(".metricsLegend")
 	.data(metricsColors.domain())
 	.enter().append("g")
@@ -486,6 +503,7 @@
 
 		return legendLabels[d] + ': ' + metrics[d];
 	    });
+	*/
     };
 
 

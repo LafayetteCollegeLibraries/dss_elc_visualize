@@ -23,9 +23,18 @@
 			$fieldSelect = $('div#bundle-fields-div div div select.form-select');
 		    }
 
-		    $.post('/metrics/univariate', $('form#dss-elc-visualize-univariate-form').serialize(), function(data, textStatus) {
-		    //if(true) {
+		    /**
+		     * Work-around for missing form fields during the serialization
+		     * @todo Refactor/restructure in order to ensure that the proper form values are submitted to the AJAX endpoint
+		     */
+		    var formValues = $('form#dss-elc-visualize-univariate-form').serializeArray();
+		    if(!formValues.filter(function(i,e) { return i.name == 'field' }).length) {
 			
+			formValues = formValues.concat({name: 'field', value: jQuery('#bundle-fields-div select').val()});
+		    }
+
+		    $.post('/metrics/univariate', formValues, function(data, textStatus) {
+
 			// Refactor into a dssElcMetrics plug-in
 			$univariateButton.univariateRender({data: data});
 

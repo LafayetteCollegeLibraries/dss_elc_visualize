@@ -301,7 +301,7 @@ function dss_elc_visualize_preprocess_page(&$variables) {
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/linear_chart.js');
 
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/q_analysis.js');
-
+ 
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate_plugin.js');
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate.js');
   

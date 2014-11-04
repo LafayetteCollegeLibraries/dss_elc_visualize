@@ -29,7 +29,9 @@
 	return this.each(function(i, element) {
 
 		// Bind a new qAnalysis Object to the element
-		$(element).data('elc', { bivariate: $(element).qAnalysisFactory(settings) });
+		$(this).data('elc', { bivariate: $(this).qAnalysisFactory(settings) });
+
+		return this;
 	    });
     };
 			
@@ -43,7 +45,6 @@
 		    // ...render the visualization.
 		    $(element).data('elc').bivariate.render(options);
 		}
-
 	    });
     };
 }(jQuery));

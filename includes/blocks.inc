@@ -173,13 +173,13 @@ function dss_elc_visualize_bivariate_form_field_u_callback($form, $form_state) {
 
   $default_fields_u = dss_elc_visualize_get_fields($form['bivariate']['bundle_u']['#value']);
   $form['bivariate']['field_u'] = array(
-					 '#title' => t('Field for Analysis'),
-					 '#type' => 'select',
-					 '#default_value' => array_shift($default_fields_u),
-					 '#options' => $default_fields_u,
-					 '#prefix' => '<div id="bundle-fields-u-div">',
-					 '#suffix' => '</div>',
-					 );
+					'#title' => t('Field for Analysis'),
+					'#type' => 'select',
+					'#default_value' => array_shift($default_fields_u),
+					'#options' => $default_fields_u,
+					'#prefix' => '<div id="bundle-fields-u-div">',
+					'#suffix' => '</div>',
+					);
 
   return $form['bivariate']['field_u'];
 }
@@ -187,14 +187,15 @@ function dss_elc_visualize_bivariate_form_field_u_callback($form, $form_state) {
 function dss_elc_visualize_bivariate_form_field_v_callback($form, $form_state) {
 
   $default_fields_v = dss_elc_visualize_get_fields($form['bivariate']['bundle_v']['#value']);
+
   $form['bivariate']['field_v'] = array(
-					 '#title' => t('Field for Analysis'),
-					 '#type' => 'select',
-					 '#default_value' => array_shift($default_fields_v),
-					 '#options' => $default_fields_v,
-					 '#prefix' => '<div id="bundle-fields-v-div">',
-					 '#suffix' => '</div>',
-					 );
+					'#title' => t('Field for Analysis'),
+					'#type' => 'select',
+					'#default_value' => array_shift($default_fields_v),
+					'#options' => $default_fields_v,
+					'#prefix' => '<div id="bundle-fields-v-div">',
+					'#suffix' => '</div>',
+					);
 
   return $form['bivariate']['field_v'];
 }
@@ -391,16 +392,19 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
   $bivariate = variable_get('bivariate', array());
 
   // One of the entities to be analyzed
-  $default_bundle_u = !empty($bivariate['bundle_u']) ? $bivariate['bundle_u'] : 'book';
+  $default_bundle_u = !empty($bivariate['bundle_u']) ? $bivariate['bundle_u'] : 'human';
   $form['bivariate']['bundle_u'] = array(
 					'#title' => t('Entity to be Analyzed'),
 					'#type' => 'select',
 					'#default_value' => $default_bundle_u,
 					// To be extended
 					//'#options' => dss_elc_visualize_get_bundles(),
-					'#options' => array('book' => 'Books',
-							    'periodical' => 'Periodicals',
-							    //'item' => 'Collection Items'
+					'#options' => array(
+							    //'book' => 'Books',
+							    //'periodical' => 'Periodicals',
+							    'human' => 'People',
+							    'item' => 'Items', //! This addresses user story EDDC-382
+							    'loan' => 'Loans'
 							    ),
 					'#ajax' => array(
 							 'callback' => 'dss_elc_visualize_bivariate_form_field_u_callback',
@@ -411,30 +415,40 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 					);
 
   $default_fields_u = dss_elc_visualize_get_fields($default_bundle_u);
-  $form['bivariate']['field_u'] = array(
-					 '#title' => t('Field for Analysis'),
-					 '#type' => 'select',
-					 '#default_value' => (!empty($bivariate['field_u']) ? $bivariate['field_u'] : array_shift($default_fields_u)),
-					 // To be extended
-					 //'#options' => $default_fields_u,
-					 '#options' => array('field_artifact_was_authored_by' => 'Authors',
-							     'field_item_subject' => 'Subject',
-							     'field_item_format' => 'Format',
-							     'field_loan_duration' => 'Date Borrowed',
-							     ),
-					 '#prefix' => '<div id="bundle-fields-u-div">',
-					 '#suffix' => '</div>',
-					 );
+  $default_field_u = !empty($default_fields_u) ? reset($default_fields_u) : NULL;
 
+  $form['bivariate']['field_u'] = array(
+					'#title' => t('Field for Analysis'),
+					'#type' => 'select',
+					'#default_value' => (!empty($bivariate['field_u']) ? $bivariate['field_u'] : $default_field_u),
+					// To be extended
+					'#options' => $default_fields_u,
+					/*
+					  '#options' => array('field_artifact_was_authored_by' => 'Authors',
+					  'field_item_subject' => 'Subject',
+					  'field_item_format' => 'Format',
+					  'field_loan_duration' => 'Date Borrowed',
+					  
+					  ),
+					*/
+					'#prefix' => '<div id="bundle-fields-u-div">',
+					'#suffix' => '</div>',
+					);
+  
   // The entity to be analyzed
-  $default_bundle_v = !empty($bivariate['bundle_v']) ? $bivariate['bundle_v'] : 'human';
+  $default_bundle_v = !empty($bivariate['bundle_v']) ? $bivariate['bundle_v'] : 'item';
+  //$default_bundle_v = !empty($bivariate['bundle_v']) ? $bivariate['bundle_v'] : 'loan';
   $form['bivariate']['bundle_v'] = array(
 					'#title' => t('Entity to be Analyzed'),
 					'#type' => 'select',
 					'#default_value' => $default_bundle_v,
 					 // To be extended
 					//'#options' => dss_elc_visualize_get_bundles(),
-					'#options' => array('human' => 'People'),
+					'#options' => array(
+							    'human' => 'People',
+							    'item' => 'Items',
+							    'loan' => 'Loans' //! This addresses user story EDDC-382
+							    ),
 					'#ajax' => array(
 							 'callback' => 'dss_elc_visualize_bivariate_form_field_v_callback',
 							 'wrapper' => 'bundle-fields-v-div',
@@ -444,12 +458,15 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 					);
 
   $default_fields_v = dss_elc_visualize_get_fields($default_bundle_v);
+  $default_field_v = !empty($default_fields_v) ? reset($default_fields_v) : NULL;
+
   $form['bivariate']['field_v'] = array(
 					 '#title' => t('Field for Analysis'),
 					 '#type' => 'select',
-					 '#default_value' => (!empty($bivariate['field_v']) ? $bivariate['field_v'] : array_shift($default_fields_v)),
+					 '#default_value' => (!empty($bivariate['field_v']) ? $bivariate['field_v'] : $default_field_v),
 					 // To be extended
-					 //'#options' => $default_fields_v,
+					 '#options' => $default_fields_v,
+					 /*
 					 '#options' => array('field_human_gender' => 'Gender',
 							     'field_human_occupation' => 'Occupation',
 							     // To be extended
@@ -457,6 +474,8 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 							     'field_person_location' => 'Location',
 							     'field_person_type' => 'Type',
 							     ),
+					 */
+					 //'#options' => array('quantity' => '(Quantity)'),
 					 '#prefix' => '<div id="bundle-fields-v-div">',
 					 '#suffix' => '</div>',
 					 );
@@ -475,12 +494,34 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 							    ),
 					'#prefix' => '<div id="metric-div">',
 					'#suffix' => '</div>',
-					);
+					/*
+					 * @todo Implement additional metrics to be calculated (e. g. arithmetic mean)
+					 *
+					'#ajax' => array(
+							 'callback' => 'dss_elc_visualize_bivariate_form_metrics_callback',
+							 'wrapper' => 'bundle-fields-v-div',
+							 'method' => 'replace',
+							 'effect' => 'fade',
+							 ),
+					*/
+				       );
+
+  $form['bivariate']['chart'] = array(
+				      '#title' => t('Type of Chart'),
+					'#type' => 'select',
+					'#default_value' => 'bar',
+					'#options' => array(
+							    'bar' => 'Grouped Bar Chart',
+							    'line' => 'Line Chart'
+							    ),
+					'#prefix' => '<div id="chart-div">',
+					'#suffix' => '</div>',
+				       );
 
   $form['bivariate']['submit'] = array(
-					  '#type' => 'submit',
-					  '#value' => t('View the Data')
-					  );
+				       '#type' => 'submit',
+				       '#value' => t('View the Data')
+				       );
 
   $form['actions']['#type'] = 'actions';
   return $form;

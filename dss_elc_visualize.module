@@ -13,7 +13,7 @@ function dss_elc_visualize_get_bundles() {
   return array('human' => 'People',
 	       'book' => 'Books',
 	       'periodical' => 'Periodicals',
-	       'item' => 'Collection Items',
+	       'item' => 'Items',
 	       );
 }
 
@@ -27,9 +27,9 @@ function dss_elc_visualize_get_fields($bundle) {
 
   $fields = array('human' => array(
 				   'field_human_gender' => 'Gender',
-				   'field_human_occupation' => 'Occupation',
-				   'field_person_membership' => 'Membership',
-				   'field_person_location' => 'Location',
+				   //'field_human_occupation' => 'Occupation',
+				   //'field_person_membership' => 'Membership',
+				   //'field_person_location' => 'Location',
 				   'field_person_type' => 'Type',
 				   ),
 
@@ -43,10 +43,26 @@ function dss_elc_visualize_get_fields($bundle) {
 					'field_item_format' => 'Format'
 					),
 
-		  'item' => array('field_artifact_was_authored_by' => 'Authors',
+		  'item' => array(
+				  'field_artifact_was_authored_by' => 'Authors',
 				  'field_item_subject' => 'Subject',
-				  'field_item_format' => 'Format'
+				  'field_item_format' => 'Format',
+				  //'related_manifestation_title' => 'Item Collection Title', //! This addresses user story EDDC-382
 				  ),
+
+		  'loan' => array(
+				  'field_bib_rel_subject' => 'Shareholder',
+				  'field_loan_representative' => 'Representative',
+
+				  'field_loan_duration_value_0' => 'Checkout Date',
+				  //'field_loan_duration_value_1' => 'Checkout Returned Date',
+
+				  //'field_loan_fine' => 'Fine',
+
+				  'field_bib_rel_object' => 'Title',
+				  //'field_borrowed_volumes' => 'Borrowed Volumes'
+				  //'related_loans_duration_elapsed' => 'Time Elapsed Between Loans', //! This addresses user story EDDC-382 and user story EDDC-383
+				  )
 		  );
 
   return $fields[$bundle];

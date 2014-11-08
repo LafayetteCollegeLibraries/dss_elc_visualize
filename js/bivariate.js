@@ -10,14 +10,8 @@
 
 	attach: function(context, settings) {
 
-	    /*
-	    $bivariateButton = $('form#dss-elc-visualize-bivariate-form').find('button');
-	    $bivariateButton.bivariateInit();
-	    $bivariateButton.click(function(event) {
-	    */
-
-	    //$('#dss-elc-visualize-bivariate-form .btn').once('[type="submit"]:visible').bivariateInit().click(function(event) {
-	    $('#dss-elc-visualize-bivariate-form .btn[type="submit"]:visible').bivariateInit().click(function(event) {
+	    // Ensure that this handler is only bound to visible elements, and, is only called once
+	    $('#dss-elc-visualize-bivariate-form .btn[type="submit"]:visible').bivariateInit().off('click').click(function(event) {
 
 		    event.preventDefault();
 
@@ -29,6 +23,9 @@
 
 		    var data = $('form#dss-elc-visualize-bivariate-form').serializeArray();
 
+		    // Work-around due to problems arising from Drupal's Form API stripping certain element attributes from form fields
+		    // (i. e. <select> has @name removed from dropdown fields after selecting different Node types for analysis)
+		    // Please see EDDC-395
 		    ['field_u' , 'field_v'].map(function(fieldName, i) {
 
 			    var hasField = false;

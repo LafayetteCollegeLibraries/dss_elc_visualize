@@ -53,19 +53,23 @@
 	if(settings.chart == 'line') {
 
 	    nv.addGraph(function() {
+
+		    settings.height -= 60;
 		    
 		    var chart = nv.models.lineChart()
 		    .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
 		    .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
 		    .transitionDuration(350)  //how fast do you want the lines to transition?
+		    //.rotateLabels(-35)
 		    .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
 		    .showYAxis(true)        //Show the y-axis
 		    .showXAxis(true)        //Show the x-axis
+
 		    .width(settings.width)
 		    .height(settings.height);
 		    
 		    chart.xAxis
-			.axisLabel(settings.xAxisLabel)
+			//.axisLabel(settings.xAxisLabel)
 			.tickFormat(function(d){
 
 			    return settings.data.labels[d];
@@ -73,7 +77,7 @@
 
 		    
 		    chart.yAxis
-		    .axisLabel(settings.yAxisLabel)
+		    //.axisLabel(settings.yAxisLabel)
 		    .tickFormat(d3.format(',.1f'));
 
 		    d3.select('#bivariate-visualize')
@@ -84,6 +88,27 @@
 			.call(chart);
 
 		    nv.utils.windowResize(chart.update);
+
+		    // Work-around for rotating the X-axis labels
+		    d3.select('body')
+			.selectAll('.nv-x.nv-axis > g')
+			.selectAll('g')
+			.selectAll('text')
+			//.attr('transform', function(d) { return 'translate (-13, 15) rotate(-35 0,0)' });
+		        .attr('transform', function(d, i, e) {
+
+				/*
+				// Magical constants
+				//! @todo Refactor
+				var translateX = 0 - d.length * (6.0 / 2.2);
+				var translateY = d.length * (4.0 / 2.2);
+				return 'translate (' + translateX + ', ' + translateY + ') rotate(-35 0,0)';
+				*/
+
+				return 'translate (-60, 40) rotate(-35 0,0)';
+			    });
+			//.attr('transform', function(d) { return 'rotate(-35 0,0)' });
+
 		    return chart;
 		});
 
@@ -118,8 +143,8 @@
 
 		    d3.select('#bivariate-visualize')
 		    .append('svg')
-		    .attr('width', '820px')
-		    .attr('height', '680px')
+		    .attr('width', settings.width + 'px')
+		    .attr('height', settings.height + 'px')
 		    .datum(settings.data.samples)
 		    .call(chart);
 

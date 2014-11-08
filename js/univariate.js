@@ -42,23 +42,26 @@
 		    }
 		    */
 
-		    var response = {"samples":[{"key":"Items","values":[{"x":0,"y":951},{"x":1,"y":33},{"x":2,"y":16}]}],"labels":["Book","Unknown","Periodical"]};
+		    /*
+		    //var response = {"samples":[{"key":"Items","values":[{"x":0,"y":951},{"x":1,"y":33},{"x":2,"y":16}]}],"labels":["Book","Unknown","Periodical"]};
 		    //var response = {"samples":[{"label":"Book","value":951},{"label":"Unknown","value":33},{"label":"Periodical","value":16}],"labels":[]};
 
 		    $(this).univariateRender({
 
 			    chart: $('#edit-chart').val(),
 			    data: response });
-
-		    /*
-
-		    $.post('/metrics/univariate', formValues, function(data, textStatus) {
-
-			// Refactor into a dssElcMetrics plug-in
-			$univariateButton.univariateRender({data: data});
-
-			});
 		    */
+
+		    $.post('/dss_elc_metrics/univariate', data, function(response, textStatus) {
+
+			    console.log(response);
+
+			    // Refactor into a dssElcMetrics plug-in
+			    $(this).univariateRender({
+
+				    chart: $('#edit-chart').val(),
+				    data: response});
+			});
 		});
 	}
     };

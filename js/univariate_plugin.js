@@ -70,11 +70,10 @@
 		    .axisLabel(settings.yAxisLabel)
 		    .tickFormat(d3.format(',.1f'));
 
-
 		    d3.select('#univariate-visualize')
 		    .append('svg')
-		    .attr('width', '820px')
-		    .attr('height', '680px')
+		    .attr('width', settings.width + 'px')
+		    .attr('height', settings.height + 'px')
 		    .datum(settings.data.samples)
 		    .call(chart);
 
@@ -101,8 +100,8 @@
 
 		    d3.select('#univariate-visualize')
 		    .append('svg')
-		    .attr('width', '820px') //! @todo Refactor
-		    .attr('height', '640px') //! @todo Refactor
+		    .attr('width', settings.width + 'px')
+		    .attr('height', settings.height + 'px')
 		    .datum(settings.data.samples)
 		    .transition().duration(350)
 		    .call(chart);

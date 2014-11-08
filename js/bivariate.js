@@ -47,6 +47,8 @@
 
 		    //var response = {"samples":[{"key":"Book","values":[{"x":0,"y":152},{"x":1,"y":66},{"x":2,"y":60},{"x":3,"y":59},{"x":4,"y":59},{"x":5,"y":56},{"x":6,"y":55},{"x":7,"y":53},{"x":8,"y":49},{"x":9,"y":49}]},{"key":"Unknown","values":[{"x":10,"y":7},{"x":11,"y":4},{"x":12,"y":3},{"x":13,"y":3},{"x":14,"y":3},{"x":15,"y":2},{"x":16,"y":2},{"x":17,"y":2},{"x":18,"y":2},{"x":19,"y":1}]},{"key":"Periodical","values":[{"x":20,"y":5},{"x":21,"y":4},{"x":22,"y":3},{"x":23,"y":2},{"x":24,"y":2}]}],"labels":["Unknown","Wagener, Jacob","Michler, Peter S.","Hunt, Elijah P.","Wolf, George","Weygandt, Jacob Junior","Shoemaker, John","Miller, John","Swift, Joseph K.","Tindall, Ralph","Unknown","Tindall, Ralph","Sinton, James","Swift, Joseph K.","Lerch, George","Wagener, Jacob","Michler, Peter S.","Michler, Nathaniel","Wagener, David D.","Depew, Samuel","Sinton, James","Unknown","Swift, Joseph K.","Michler, Peter S.","Shoemaker, John"]};
 
+		    /*
+
 		    var response = {"samples":[
 
 		    {"key":"Book","values":[
@@ -78,14 +80,15 @@
 
 			    chart: $('#edit-chart').val(),
 			    data: response });
+		    */
 
-		    /*
 		    $.post('/bivariate', data, function(response, textStatus) {
 
 			    // Refactor
-			    $(this).bivariateRender({data: response});
+			    $(this).bivariateRender({
+						    chart: $('#edit-chart').val(),
+						    data: response});
 			});
-		    */
 		});
 
 	    //! @todo Refactor

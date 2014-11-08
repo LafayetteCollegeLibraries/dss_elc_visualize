@@ -359,6 +359,18 @@ function dss_elc_visualize_univariate_form($form, &$form_state) {
 					 '#suffix' => '</div>',
 					 );
 
+  $form['univariate']['chart'] = array(
+				       '#title' => t('Type of Chart'),
+				       '#type' => 'select',
+				       '#default_value' => 'pie',
+				       '#options' => array(
+							   'pie' => 'Pie Chart',
+							   'bar' => 'Grouped Bar Chart'
+							   ),
+				       '#prefix' => '<div id="chart-div">',
+				       '#suffix' => '</div>',
+				       );
+
   $form['univariate']['submit'] = array(
 					  '#type' => 'submit',
 					  '#value' => t('View the Data')

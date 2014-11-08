@@ -25,8 +25,7 @@ function dss_elc_visualize_get_bundles() {
 */
 function dss_elc_visualize_get_fields($bundle) {
 
-  $fields = array('human' => array(
-				   'field_human_gender' => 'Gender',
+  $fields = array('human' => array('field_human_gender' => 'Gender',
 				   //'field_human_occupation' => 'Occupation',
 				   //'field_person_membership' => 'Membership',
 				   //'field_person_location' => 'Location',
@@ -43,15 +42,13 @@ function dss_elc_visualize_get_fields($bundle) {
 					'field_item_format' => 'Format'
 					),
 
-		  'item' => array(
-				  'field_artifact_was_authored_by' => 'Authors',
+		  'item' => array('field_artifact_was_authored_by' => 'Authors',
 				  'field_item_subject' => 'Subject',
 				  'field_item_format' => 'Format',
 				  //'related_manifestation_title' => 'Item Collection Title', //! This addresses user story EDDC-382
 				  ),
 
-		  'loan' => array(
-				  'field_bib_rel_subject' => 'Shareholder',
+		  'loan' => array('field_bib_rel_subject' => 'Shareholder',
 				  'field_loan_representative' => 'Representative',
 
 				  'field_loan_duration_value_0' => 'Checkout Date',

@@ -32,7 +32,7 @@
 
 			    for(var i in data) {
 
-				if(data[i][name] == fieldName) {
+				if(data[i].name == fieldName) {
 
 				    hasField = true;
 				}

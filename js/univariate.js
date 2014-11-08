@@ -43,6 +43,7 @@
 		    */
 
 		    var response = {"samples":[{"key":"Items","values":[{"x":0,"y":951},{"x":1,"y":33},{"x":2,"y":16}]}],"labels":["Book","Unknown","Periodical"]};
+		    //var response = {"samples":[{"label":"Book","value":951},{"label":"Unknown","value":33},{"label":"Periodical","value":16}],"labels":[]};
 
 		    $(this).univariateRender({
 

@@ -11,12 +11,20 @@
 
 	attach: function(context, settings) {
 
+	    /*
 	    $univariateButton = $('form#dss-elc-visualize-univariate-form').find('button');
 	    $univariateButton.univariateInit();
 	    $univariateButton.click(function(event) {
+	    */
+
+	    // Ensure that this handler is only bound to visible elements, and, is only called once
+	    $('#dss-elc-visualize-univariate-form .btn[type="submit"]:visible').univariateInit().off('click').click(function(event) {
 
 		    event.preventDefault();
 
+		    var data = $('form#dss-elc-visualize-univariate-form').serializeArray();
+
+		    /*
 		    $fieldSelect = $('form#dss-elc-visualize-univariate-form').find('select#edit-field');
 		    if(!$fieldSelect.length) {
 
@@ -26,40 +34,30 @@
 		    /**
 		     * Work-around for missing form fields during the serialization
 		     * @todo Refactor/restructure in order to ensure that the proper form values are submitted to the AJAX endpoint
-		     */
+		     * /
 		    var formValues = $('form#dss-elc-visualize-univariate-form').serializeArray();
 		    if(!formValues.filter(function(i,e) { return i.name == 'field' }).length) {
 			
 			formValues = formValues.concat({name: 'field', value: jQuery('#bundle-fields-div select').val()});
 		    }
+		    */
+
+		    var response = {"samples":[{"key":"Items","values":[{"x":0,"y":951},{"x":1,"y":33},{"x":2,"y":16}]}],"labels":["Book","Unknown","Periodical"]};
+
+		    $(this).univariateRender({
+
+			    chart: $('#edit-chart').val(),
+			    data: response });
+
+		    /*
 
 		    $.post('/metrics/univariate', formValues, function(data, textStatus) {
 
 			// Refactor into a dssElcMetrics plug-in
 			$univariateButton.univariateRender({data: data});
 
-			/*
-			// Fixture
-			data = {
-			    data : [
-
-				    { domain: 'subjectA', values: [ { sample: 'male', value: 45 }] },
-				    { domain: 'subjectB', values: [ { sample: 'male', value: 67 }] },
-				    { domain: 'subjectC', values: [ { sample: 'male', value: 88 }] } ],
-
-			    metadata: [				       
-
-			{ label: 'domain', type: 'temporal', axis: 'x' },
-			{ label: 'value', type: 'ratio', axis: 'y' } ]
-			};
-			
-			// Refactor
-			//$univariateButton.dss.elc.metrics.render({data: data});
-			$univariateButton.univariateRender({data: data});
-			*/
-
-			//}
 			});
+		    */
 		});
 	}
     };

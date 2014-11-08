@@ -38,40 +38,96 @@
 			
     $.fn.bivariateRender = function(options) {
 
-	return nv.addGraph(function() {
-
-		var chart = nv.models.multiBarChart()
-		.transitionDuration(350)
-		.reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
-		.rotateLabels(0)      //Angle to rotate x-axis labels.
-		.showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
-		.groupSpacing(0.1)    //Distance between each group of bars.
-		.width(820)
-		.height(640);
-
-		/*
-		chart.xAxis
-		.tickFormat(d3.format(',f'));
-		*/
-		chart.xAxis.tickFormat(function(d){
-
-			return options.data.labels[d];
-		    });
+	var settings = $.extend({
 		
-		chart.yAxis
-		.tickFormat(d3.format(',.1f'));
+		chart: 'bar',
 
-		d3.select('#bivariate-visualize')
-		.append('svg')
-		.attr('width', '820px')
-		.attr('height', '640px')
-		.datum(options.data.samples)
-		.call(chart);
+		width: 820,
+		height: 640,
 
-		nv.utils.windowResize(chart.update);
+		xAxisLabel: 'Domain',
+		yAxisLabel: 'Range'
 
-		return chart;
-	    });
+	    }, options);
+	
+	if(settings.chart == 'line') {
+
+	    nv.addGraph(function() {
+		    
+		    var chart = nv.models.lineChart()
+		    .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
+		    .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
+		    .transitionDuration(350)  //how fast do you want the lines to transition?
+		    .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
+		    .showYAxis(true)        //Show the y-axis
+		    .showXAxis(true)        //Show the x-axis
+		    .width(settings.width)
+		    .height(settings.height);
+		    
+		    chart.xAxis
+			.axisLabel(settings.xAxisLabel)
+			.tickFormat(function(d){
+
+			    return settings.data.labels[d];
+			});
+
+		    
+		    chart.yAxis
+		    .axisLabel(settings.yAxisLabel)
+		    .tickFormat(d3.format(',.1f'));
+
+		    d3.select('#bivariate-visualize')
+			.append('svg')
+			.attr('width', settings.width + 'px')
+			.attr('height', settings.height + 'px')
+			.datum(settings.data.samples)
+			.call(chart);
+
+		    nv.utils.windowResize(chart.update);
+		    return chart;
+		});
+
+	} else {
+
+	    return nv.addGraph(function() {
+
+		    settings.height -= 40;
+		    
+		    var chart = nv.models.multiBarChart()
+		    .transitionDuration(350)
+		    .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
+		    //.rotateLabels(-90)      //Angle to rotate x-axis labels.
+		    .rotateLabels(-35)
+		    .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+		    .groupSpacing(0.1)    //Distance between each group of bars.
+		    .width(settings.width)
+		    .height(settings.height);
+
+		    chart.xAxis
+		    //.axisLabel(settings.xAxisLabel)
+		    .tickFormat(function(d){
+
+			    return settings.data.labels[d];
+			});
+
+		
+		    chart.yAxis
+		    .axisLabel(settings.yAxisLabel)
+		    .tickFormat(d3.format(',.1f'));
+
+
+		    d3.select('#bivariate-visualize')
+		    .append('svg')
+		    .attr('width', '820px')
+		    .attr('height', '680px')
+		    .datum(settings.data.samples)
+		    .call(chart);
+
+		    nv.utils.windowResize(chart.update);
+
+		    return chart;
+		});
+	}
 
 	/*
 	return this.each(function(i, element) {

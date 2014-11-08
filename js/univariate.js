@@ -11,18 +11,12 @@
 
 	attach: function(context, settings) {
 
-	    /*
-	    $univariateButton = $('form#dss-elc-visualize-univariate-form').find('button');
-	    $univariateButton.univariateInit();
-	    $univariateButton.click(function(event) {
-	    */
-
 	    // Ensure that this handler is only bound to visible elements, and, is only called once
 	    $('#dss-elc-visualize-univariate-form .btn[type="submit"]:visible').univariateInit().off('click').click(function(event) {
 
-		    event.preventDefault();
+			event.preventDefault();
 
-		    var data = $('form#dss-elc-visualize-univariate-form').serializeArray();
+			var data = $('form#dss-elc-visualize-univariate-form').serializeArray();
 
 		    /*
 		    $fieldSelect = $('form#dss-elc-visualize-univariate-form').find('select#edit-field');
@@ -52,17 +46,17 @@
 			    data: response });
 		    */
 
-		    $.post('/dss_elc_metrics/univariate', data, function(response, textStatus) {
+			$.post('/dss_elc_metrics/univariate', data, function(response, textStatus) {
+				
+				// Refactor into a dssElcMetrics plug-in
+				$(this).univariateRender({
 
-			    console.log(response);
-
-			    // Refactor into a dssElcMetrics plug-in
-			    $(this).univariateRender({
-
-				    chart: $('#edit-chart').val(),
-				    data: response});
-			});
+					chart: $('#edit-chart').val(),
+					data: response});
+			    });
 		});
+
+	    $('#dss-elc-visualize-univariate-form .btn[type="submit"]:visible').click();
 	}
     };
 })(jQuery, Drupal);

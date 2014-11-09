@@ -14,6 +14,7 @@ function dss_elc_visualize_get_bundles() {
 	       'book' => 'Books',
 	       'periodical' => 'Periodicals',
 	       'item' => 'Items',
+	       'loan' => 'Loans',
 	       );
 }
 
@@ -49,7 +50,7 @@ function dss_elc_visualize_get_fields($bundle) {
 				  ),
 
 		  'loan' => array('field_bib_rel_subject' => 'Shareholder',
-				  'field_loan_representative' => 'Representative',
+				  'field_loan_shareholder' => 'Representative',
 
 				  'field_loan_duration_value_0' => 'Checkout Date',
 				  //'field_loan_duration_value_1' => 'Checkout Returned Date',

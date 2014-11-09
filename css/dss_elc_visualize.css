@@ -1,0 +1,45 @@
+/**
+ * @file Visualization-specific styling
+ * @author griffinj@lafayette.edu
+ *
+ */
+
+.ui-slider-legend-min {
+
+    float: left;
+}
+
+.ui-slider-legend-max {
+
+    float: right;
+}
+
+/**
+ * Terrible work-around implemented in the name of conserving time
+ * @todo These should be properly integrated into the color map for the D3 visualization
+ */
+.nodeLegendShareholder {
+
+    fill: #FF9F46 !important;
+}
+
+.nodeLegendRepresentative {
+
+    fill: #9A1321 !important;
+}
+
+.visualize-loading {
+
+    height: 640px;
+    width: 820px;
+
+    background-image: url("/sites/all/modules/islandora_dss_solution_pack_elc_visualize/img/loader_65_65.gif");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#bivariate-loading.visualize-loading,
+#univariate-loading.visualize-loading {
+
+    background-color: #ffffff;
+}

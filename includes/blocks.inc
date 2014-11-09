@@ -325,6 +325,8 @@ function dss_elc_visualize_univariate_form($form, &$form_state) {
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate_plugin.js');
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate.js');
 
+  drupal_add_css(drupal_get_path('module', 'dss_elc_visualize') . '/css/dss_elc_visualize.css');
+
   $form['univariate'] = array(
 			      '#prefix' => '<div id="univariate-visualize-legend" class="visualize-legend"><div id="univariate-visualize-legend-samples"></div><div id="univariate-visualize-legend-metrics"></div></div><div id="univariate-visualize-axis-y" class="visualize-axis-y"></div><div id="univariate-visualize"></div>',
 			      '#type' => 'container',
@@ -392,6 +394,8 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/bivariate_plugin.js');
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/bivariate.js');
+
+  drupal_add_css(drupal_get_path('module', 'dss_elc_visualize') . '/css/dss_elc_visualize.css');
 
   $form['bivariate'] = array(
 			     '#prefix' => '<div id="bivariate-visualize-legend" class="visualize-legend"><div id="bivariate-visualize-legend-samples"></div><div id="bivariate-visualize-legend-metrics"></div></div><div id="bivariate-visualize-axis-y" class="visualize-axis-y"></div><div id="bivariate-visualize"></div>',

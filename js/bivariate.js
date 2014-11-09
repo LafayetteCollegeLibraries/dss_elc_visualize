@@ -15,6 +15,12 @@
 
 		    event.preventDefault();
 
+		    // Empty the container element
+		    // Render the AJAX loading animation
+		    $('#bivariate-visualize')
+		    .empty()
+		    .toggleClass('visualize-loading');
+
 		    $fieldSelect = $('form#dss-elc-visualize-bivariate-form').find('select#edit-field');
 		    if(!$fieldSelect.length) {
 
@@ -83,6 +89,9 @@
 		    */
 
 		    $.post('/bivariate', data, function(response, textStatus) {
+
+			    // Remove the AJAX loading animation
+			    $('#bivariate-visualize').toggleClass('visualize-loading');
 
 			    // Refactor
 			    $(this).bivariateRender({

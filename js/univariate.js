@@ -16,6 +16,12 @@
 
 			event.preventDefault();
 
+			// Empty the container element
+			// Render the AJAX loading animation
+			$('#univariate-visualize')
+			.empty()
+			.toggleClass('visualize-loading');
+
 			var data = $('form#dss-elc-visualize-univariate-form').serializeArray();
 
 		    /*
@@ -47,6 +53,9 @@
 		    */
 
 			$.post('/dss_elc_metrics/univariate', data, function(response, textStatus) {
+
+				// Remove the AJAX loading animation
+				$('#univariate-visualize').toggleClass('visualize-loading');
 				
 				// Refactor into a dssElcMetrics plug-in
 				$(this).univariateRender({

@@ -158,6 +158,8 @@
 	/**
 	 * For testing
 	 */
+
+	/*
 	var testingOptions = {};
 	testingOptions.data = {"data":{
 		"nodes":[
@@ -169,6 +171,10 @@
 
 	nodes = options.data.data.nodes;
 	links = options.data.data.links;
+	*/
+
+	var nodes = options.data.nodes;
+	var links = options.data.links;
 
 	// https://github.com/mbostock/d3/pull/1138#issuecomment-19918150
 	// This prepends a unique character to each string (register bug)
@@ -178,7 +184,7 @@
 	// Map each node type to a color
 	nodeColors = d3.scale.category20b()
 	.domain(d3.scale.ordinal()
-		.domain( nodes.map(function(d) { return d.type }) ).domain());
+		.domain( nodes.map(function(d) { return d.group }) ).domain());
 
 	// Map each link type to a color
 	linkColors = d3.scale.category20c()
@@ -250,12 +256,12 @@
 	    })
 	.style("fill", function(d) {
 
-		return nodeColors(d.type);
+		return nodeColors(d.group);
 	    })
 	.style("stroke", "#FFF")
 	.style("stroke-width", 3)
-	.attr('class', function(d, i) { return 'node-' + d.type; }) // Append the classes to the appropriate nodes
-	.attr('id', function(d, i) { return 'node-' + d.type + '-' + i; }); // Append the id for each node
+	.attr('class', function(d, i) { return 'node-' + d.group; }) // Append the classes to the appropriate nodes
+	.attr('id', function(d, i) { return 'node-' + d.group + '-' + i; }); // Append the id for each node
 	
 	// ...and append the text...
 	node.append("svg:text").text(function(d) {

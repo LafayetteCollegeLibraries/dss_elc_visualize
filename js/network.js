@@ -65,8 +65,8 @@
 		$('.ui-slider-legend-max').text(legendMax);
 	    };
 
-	    $('#edit-bundle').change(sliderHandler);
-	    sliderHandler();
+	    //$('#edit-bundle').change(sliderHandler);
+	    //sliderHandler();
 
 	    $networkMetricsButton.click(function(event) {
 

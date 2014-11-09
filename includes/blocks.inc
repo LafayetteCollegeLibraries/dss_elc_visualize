@@ -646,6 +646,8 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 
   $min = 1;
   $max = 32;
+
+  /*
   $form['network_metrics']['limit'] = array('#title' => 'Max. Nodes',
 					    '#type' => 'slider',
 					    //'#default_value' => $min,
@@ -653,16 +655,15 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 					    '#slider_style' => '#6E664F',
 					    //'#range' => 'min',
 					    '#range' => TRUE,
-					    /*
-					    '#min' => -4859982000000,
-					    '#max' => -5005047600000,
-					    '#step' => 259200000,
-					    */
-					    /*
-					    '#min' => 485.99820,
-					    '#max' => 500.50476,
-					    '#step' => 259.20000,
-					    */
+
+					    //'#min' => -4859982000000,
+					    //'#max' => -5005047600000,
+					    //'#step' => 259200000,
+
+					    //'#min' => 485.99820,
+					    //'#max' => 500.50476,
+					    //'#step' => 259.20000,
+
 					    '#min' => $min,
 					    '#max' => $max,
 					    '#step' => 1,
@@ -675,6 +676,7 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 					    '#slider_length' => '100px',
 					    '#suffix' => '<div class="ui-slider-legend"><span class="ui-slider-legend-min">' . $min . '</span><span class="ui-slider-legend-max">' . $max . '</span></div>',
 					    );
+  */
 
 					    /*
 					    array('#type' => 'transfer_slider',
@@ -713,6 +715,16 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 								   '#suffix' => '</div>',
 								   );
   */
+  $form['network_metrics']['depth'] = array('#type' => 'select',
+					    '#title' => t('Depth'),
+					    '#options' => array(
+								1 => t('1'),
+								2 => t('2'),
+								3 => t('3')
+								),
+					    '#default_value' => 1,
+					    '#description' => t('Depth of the Network Exploration')
+					    );
 
   $form['network_metrics']['submit'] = array(
 					     '#type' => 'submit',

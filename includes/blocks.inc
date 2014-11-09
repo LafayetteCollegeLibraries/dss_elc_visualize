@@ -409,12 +409,27 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 
   // One of the entities to be analyzed
   $default_bundle_u = !empty($bivariate['bundle_u']) ? $bivariate['bundle_u'] : 'human';
+
+  // The entity to be analyzed
+  $default_bundle_v = !empty($bivariate['bundle_v']) ? $bivariate['bundle_v'] : 'item';
+  //$default_bundle_v = !empty($bivariate['bundle_v']) ? $bivariate['bundle_v'] : 'loan';
+
+  $options = array(
+		   //'book' => 'Books',
+		   //'periodical' => 'Periodicals',
+		   'human' => 'People',
+		   'item' => 'Items', //! This addresses user story EDDC-382
+		   'loan' => 'Loans'
+		   );
+  unset($options[$default_bundle_v]);
+
   $form['bivariate']['bundle_u'] = array(
 					'#title' => t('Entity to be Analyzed'),
 					'#type' => 'select',
 					'#default_value' => $default_bundle_u,
 					// To be extended
 					//'#options' => dss_elc_visualize_get_bundles(),
+					/*
 					'#options' => array(
 							    //'book' => 'Books',
 							    //'periodical' => 'Periodicals',
@@ -422,6 +437,9 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 							    'item' => 'Items', //! This addresses user story EDDC-382
 							    'loan' => 'Loans'
 							    ),
+					*/
+					'#options' => $options,
+
 					'#ajax' => array(
 							 'callback' => 'dss_elc_visualize_bivariate_form_field_u_callback',
 							 'wrapper' => 'bundle-fields-u-div',
@@ -450,21 +468,30 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 					'#prefix' => '<div id="bundle-fields-u-div">',
 					'#suffix' => '</div>',
 					);
+
+  $options = array(
+		   //'book' => 'Books',
+		   //'periodical' => 'Periodicals',
+		   'human' => 'People',
+		   'item' => 'Items', //! This addresses user story EDDC-382
+		   'loan' => 'Loans'
+		   );
+  unset($options[$default_bundle_u]);
   
-  // The entity to be analyzed
-  $default_bundle_v = !empty($bivariate['bundle_v']) ? $bivariate['bundle_v'] : 'item';
-  //$default_bundle_v = !empty($bivariate['bundle_v']) ? $bivariate['bundle_v'] : 'loan';
   $form['bivariate']['bundle_v'] = array(
 					'#title' => t('Entity to be Analyzed'),
 					'#type' => 'select',
 					'#default_value' => $default_bundle_v,
 					 // To be extended
 					//'#options' => dss_elc_visualize_get_bundles(),
+					/*
 					'#options' => array(
 							    'human' => 'People',
 							    'item' => 'Items',
 							    'loan' => 'Loans' //! This addresses user story EDDC-382
 							    ),
+					*/
+					'#options' => $options,
 					'#ajax' => array(
 							 'callback' => 'dss_elc_visualize_bivariate_form_field_v_callback',
 							 'wrapper' => 'bundle-fields-v-div',

@@ -158,13 +158,13 @@ function dss_elc_visualize_univariate_form_field_callback($form, $form_state) {
 
   $defaultFields = dss_elc_visualize_get_fields($form['univariate']['bundle']['#value']);
   $form['univariate']['field'] = array(
-					 '#title' => t('Field for Analysis'),
-					 '#type' => 'select',
-					 '#default_value' => array_shift($defaultFields),
-					 '#options' => $defaultFields,
-					 '#prefix' => '<div id="bundle-fields-div">',
-					 '#suffix' => '</div>',
-					 );
+				       '#title' => t('Field for Analysis'),
+				       '#type' => 'select',
+				       '#default_value' => array_shift($defaultFields),
+				       '#options' => $defaultFields,
+				       '#prefix' => '<div id="bundle-fields-div">',
+				       '#suffix' => '</div>',
+				       );
 
   return $form['univariate']['field'];
 }
@@ -335,13 +335,16 @@ function dss_elc_visualize_univariate_form($form, &$form_state) {
 						     )
 			      );
 
+  $bundles = dss_elc_visualize_get_bundles();
+  //$bundles = array_diff($bundles, array('book', 'periodical');
+
   $univariate = variable_get('univariate', array());
   $defaultBundle = !empty($univariate['bundle']) ? $univariate['bundle'] : 'human';
   $form['univariate']['bundle'] = array(
 					  '#title' => t('Entity to be Analyzed'),
 					  '#type' => 'select',
 					  '#default_value' => $defaultBundle,
-					  '#options' => dss_elc_visualize_get_bundles(),
+					  '#options' => $bundles,
 					  '#ajax' => array(
 							   'callback' => 'dss_elc_visualize_univariate_form_field_callback',
 							   'wrapper' => 'bundle-fields-div',

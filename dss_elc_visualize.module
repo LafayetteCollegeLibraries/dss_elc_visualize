@@ -11,8 +11,8 @@ require_once dirname(__FILE__) . '/includes/blocks.inc';
 function dss_elc_visualize_get_bundles() {
 
   return array('human' => 'People',
-	       'book' => 'Books',
-	       'periodical' => 'Periodicals',
+	       //'book' => 'Books',
+	       //'periodical' => 'Periodicals',
 	       'item' => 'Items',
 	       'loan' => 'Loans',
 	       );
@@ -30,7 +30,7 @@ function dss_elc_visualize_get_fields($bundle) {
 				   //'field_human_occupation' => 'Occupation',
 				   //'field_person_membership' => 'Membership',
 				   //'field_person_location' => 'Location',
-				   'field_person_type' => 'Type',
+				   'field_person_type' => 'Role',
 				   ),
 
 		  'book' => array('field_artifact_was_authored_by' => 'Authors',
@@ -46,6 +46,7 @@ function dss_elc_visualize_get_fields($bundle) {
 		  'item' => array('field_artifact_was_authored_by' => 'Authors',
 				  'field_item_subject' => 'Subject',
 				  'field_item_format' => 'Format',
+				  'field_item_format' => 'Type',
 				  //'related_manifestation_title' => 'Item Collection Title', //! This addresses user story EDDC-382
 				  ),
 

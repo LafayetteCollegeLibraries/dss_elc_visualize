@@ -5,6 +5,8 @@
  *
  */
 
+'use strict';
+
 (function($) {
 
     $.fn.renderScatterplot = function(options) {

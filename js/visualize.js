@@ -5,6 +5,8 @@
  * @author griffinj@lafayette.edu
  *
  */
+'use strict';
+
 (function($, Drupal) {
 
     Drupal.behaviors.dssElcPersRelsVisualize = {

@@ -5,6 +5,8 @@
  *
  */
 
+'use strict';
+
 (function($) {
 
     $.fn.bivariateInit = function(options) {
@@ -57,7 +59,7 @@
 		    settings.height -= 60;
 		    
 		    var chart = nv.models.lineChart()
-		    .margin({left: 100, bottom: 120})  //Adjust chart margins to give the x-axis some breathing room.
+		    .margin({left: 100, bottom: 120	})  //Adjust chart margins to give the x-axis some breathing room.
 		    .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
 		    .transitionDuration(350)  //how fast do you want the lines to transition?
 		    //.rotateLabels(-35)
@@ -102,12 +104,12 @@
 		    nv.utils.windowResize(chart.update);
 
 		    // Work-around for rotating the X-axis labels
-		    d3.select('body')
+		    /* d3.select('body')
 			.selectAll('.nv-x.nv-axis > g')
 			.selectAll('g')
-			.selectAll('text')
+			.selectAll('text') */
 			//.attr('transform', function(d) { return 'translate (-13, 15) rotate(-35 0,0)' });
-		        .attr('transform', function(d, i, e) {
+		        /* .attr('transform', function(d, i, e) { */
 
 				/*
 				// Magical constants
@@ -117,8 +119,8 @@
 				return 'translate (' + translateX + ', ' + translateY + ') rotate(-35 0,0)';
 				*/
 
-				return 'translate (-60, 40) rotate(-35 0,0)';
-			    });
+				/* return 'translate (-60, 40) rotate(-35 0,0)';
+			    }); */
 			//.attr('transform', function(d) { return 'rotate(-35 0,0)' });
 
 		    return chart;

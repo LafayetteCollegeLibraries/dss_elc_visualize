@@ -4,6 +4,7 @@
  * @author griffinj@lafayette.edu
  *
  */
+'use strict';
 
 (function($, Drupal) {
 

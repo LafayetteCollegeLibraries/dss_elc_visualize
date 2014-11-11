@@ -4,6 +4,7 @@
  * A jQuery plug-in for the rendering of univariate analyses
  *
  */
+'use strict';
 
 (function($) {
 

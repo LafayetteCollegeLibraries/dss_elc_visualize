@@ -53,8 +53,9 @@
 		    .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
 		    //.rotateLabels(-90)      //Angle to rotate x-axis labels.
 		    .rotateLabels(-35)
-		    .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+		    .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
 		    .groupSpacing(0.1)    //Distance between each group of bars.
+		    .tooltips(false)
 		    .width(settings.width)
 		    .height(settings.height);
 
@@ -94,6 +95,7 @@
 		    .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
 		    .donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
 		    .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
+		    .tooltips(false)
 		    .width(settings.width)
 		    .height(settings.height)
 		    ;

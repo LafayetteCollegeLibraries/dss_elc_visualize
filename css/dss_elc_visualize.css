@@ -38,8 +38,8 @@
     background-position: center;
 }
 
-#bivariate-loading.visualize-loading,
-#univariate-loading.visualize-loading {
+#bivariate-visualize.visualize-loading,
+#univariate-visualize.visualize-loading {
 
     background-color: #ffffff;
 }

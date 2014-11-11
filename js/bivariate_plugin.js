@@ -88,7 +88,9 @@
 		    /* chart.lines.isArea(function(d) {
 
 			return true;
-			})*/;
+			});
+			    return false;
+		   }); */
 
 		    d3.select('#bivariate-visualize')
 			.append('svg')
@@ -133,7 +135,7 @@
 		    .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
 		    //.rotateLabels(-90)      //Angle to rotate x-axis labels.
 		    .rotateLabels(-35)
-		    .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+		    .showControls(false)
 		    .groupSpacing(0.1)    //Distance between each group of bars.
 		    .width(settings.width)
 

@@ -6,6 +6,7 @@
  */
 
 (function($, Drupal) {
+	
     Drupal.behaviors.dssElcVisualizeBivariate = {
 
 	attach: function(context, settings) {

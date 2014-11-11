@@ -57,7 +57,7 @@
 		    settings.height -= 60;
 		    
 		    var chart = nv.models.lineChart()
-		    .margin({left: 100})  //Adjust chart margins to give the x-axis some breathing room.
+		    .margin({left: 100, bottom: 120, top:20})  //Adjust chart margins to give the x-axis some breathing room.
 		    .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
 		    .transitionDuration(350)  //how fast do you want the lines to transition?
 		    //.rotateLabels(-35)
@@ -65,7 +65,8 @@
 		    .showYAxis(true)        //Show the y-axis
 		    .showXAxis(true)        //Show the x-axis
 		    
-		    .tooltips(false)
+		    .tooltips(true)
+		    .isArea(false)
 
 		    .width(settings.width)
 		    .height(settings.height);
@@ -84,10 +85,10 @@
 
 		    // Could not remove line paths
 		    // Set the area to none
-		    chart.lines.isArea(function(d) {
+		    /* chart.lines.isArea(function(d) {
 
 			return true;
-			});
+			})*/;
 
 		    d3.select('#bivariate-visualize')
 			.append('svg')
@@ -135,7 +136,11 @@
 		    .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
 		    .groupSpacing(0.1)    //Distance between each group of bars.
 		    .width(settings.width)
+
+ 		    .showLegend(true)
+		    .margin({bottom: 120, top:20})
 		    .tooltips(false)
+
 		    .height(settings.height);
 
 		    chart.xAxis

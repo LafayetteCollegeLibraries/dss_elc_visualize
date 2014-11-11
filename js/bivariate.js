@@ -95,13 +95,13 @@
 
 			    // Refactor
 			    $(this).bivariateRender({
-						    chart: $('#edit-chart').val(),
-						    data: response});
+				        chart: $('#edit-chart').val(),
+					data: response});
 			});
 		});
 
 	    //! @todo Refactor
-	    $('#dss-elc-visualize-bivariate-form .btn[type="submit"]:visible').click();
+	    //$('#dss-elc-visualize-bivariate-form .btn[type="submit"]:visible').click();
 	}
     }
 })(jQuery, Drupal);

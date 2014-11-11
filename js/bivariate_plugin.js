@@ -64,6 +64,8 @@
 		    .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
 		    .showYAxis(true)        //Show the y-axis
 		    .showXAxis(true)        //Show the x-axis
+		    
+		    .tooltips(false)
 
 		    .width(settings.width)
 		    .height(settings.height);
@@ -79,6 +81,13 @@
 		    chart.yAxis
 		    //.axisLabel(settings.yAxisLabel)
 		    .tickFormat(d3.format(',.1f'));
+
+		    // Could not remove line paths
+		    // Set the area to none
+		    chart.lines.isArea(function(d) {
+
+			return true;
+			});
 
 		    d3.select('#bivariate-visualize')
 			.append('svg')
@@ -120,12 +129,13 @@
 		    
 		    var chart = nv.models.multiBarChart()
 		    .transitionDuration(350)
-		    .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
+		    .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
 		    //.rotateLabels(-90)      //Angle to rotate x-axis labels.
 		    .rotateLabels(-35)
-		    .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+		    .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
 		    .groupSpacing(0.1)    //Distance between each group of bars.
 		    .width(settings.width)
+		    .tooltips(false)
 		    .height(settings.height);
 
 		    chart.xAxis

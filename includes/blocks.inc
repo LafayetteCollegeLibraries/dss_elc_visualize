@@ -341,28 +341,33 @@ function dss_elc_visualize_univariate_form($form, &$form_state) {
   $univariate = variable_get('univariate', array());
   $defaultBundle = !empty($univariate['bundle']) ? $univariate['bundle'] : 'human';
   $form['univariate']['bundle'] = array(
-					  '#title' => t('Entity to be Analyzed'),
-					  '#type' => 'select',
-					  '#default_value' => $defaultBundle,
-					  '#options' => $bundles,
-					  '#ajax' => array(
-							   'callback' => 'dss_elc_visualize_univariate_form_field_callback',
-							   'wrapper' => 'bundle-fields-div',
-							   'method' => 'replace',
-							   'effect' => 'fade',
-							   ),
-					  );
+					'#title' => t('Entity to be Analyzed'),
+					'#type' => 'select',
+					'#default_value' => $defaultBundle,
+					'#options' => $bundles,
+					'#ajax' => array(
+							 'callback' => 'dss_elc_visualize_univariate_form_field_callback',
+							 'wrapper' => 'bundle-fields-div',
+							 'method' => 'replace',
+							 'effect' => 'fade',
+							 ),
+					);
 
   // function dss_elc_visualize_get_fields($bundle) {
-  $defaultFields = dss_elc_visualize_get_fields($defaultBundle);
+  $default_fields = dss_elc_visualize_get_fields($defaultBundle);
+
+  //$default_field = !empty($default_fields) ? reset($default_fields) : NULL;
+  $default_field = reset($default_fields);
+
   $form['univariate']['field'] = array(
-					 '#title' => t('Field for Analysis'),
-					 '#type' => 'select',
-					 '#default_value' => (!empty($univariate['field']) ? $univariate['field'] : array_shift($defaultFields)),
-					 '#options' => $defaultFields,
-					 '#prefix' => '<div id="bundle-fields-div">',
-					 '#suffix' => '</div>',
-					 );
+				       '#title' => t('Field for Analysis'),
+				       '#type' => 'select',
+				       //'#default_value' => (!empty($univariate['field']) ? $univariate['field'] : array_shift($default_fields)),
+				       '#default_value' => $default_field,
+				       '#options' => $default_fields,
+				       '#prefix' => '<div id="bundle-fields-div">',
+				       '#suffix' => '</div>',
+				       );
 
   $form['univariate']['chart'] = array(
 				       '#title' => t('Type of Chart'),
@@ -424,7 +429,7 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 		   'item' => 'Items', //! This addresses user story EDDC-382
 		   'loan' => 'Loans'
 		   );
-  unset($options[$default_bundle_v]);
+  //unset($options[$default_bundle_v]);
 
   $form['bivariate']['bundle_u'] = array(
 					'#title' => t('Entity to be Analyzed'),
@@ -479,7 +484,7 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 		   'item' => 'Items', //! This addresses user story EDDC-382
 		   'loan' => 'Loans'
 		   );
-  unset($options[$default_bundle_u]);
+  //unset($options[$default_bundle_u]);
   
   $form['bivariate']['bundle_v'] = array(
 					'#title' => t('Entity to be Analyzed'),
@@ -526,6 +531,7 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 					 '#suffix' => '</div>',
 					 );
 
+  /*
   $form['bivariate']['metric'] = array(
 					'#title' => t('Type of Metric'),
 					'#type' => 'select',
@@ -549,8 +555,9 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
 							 'method' => 'replace',
 							 'effect' => 'fade',
 							 ),
-					*/
+					* /
 				       );
+  */
 
   $form['bivariate']['chart'] = array(
 				      '#title' => t('Type of Chart'),
@@ -606,6 +613,7 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 						   // To be extended
 						   '#era_bundles' => array('human'),
 						   );
+  /*
 
   $form['network_metrics']['bundle'] = array(
 					     '#title' => t('Related To'),
@@ -622,6 +630,7 @@ function dss_elc_visualize_network_form($form, &$form_state) {
 							      'effect' => 'fade',
 							      ),
 					     );
+  */
 
 
 

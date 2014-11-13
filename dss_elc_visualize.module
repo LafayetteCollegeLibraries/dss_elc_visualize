@@ -300,6 +300,7 @@ function dss_elc_visualize_preprocess_page(&$variables) {
   drupal_add_js(libraries_get_path('colorbrewer') . '/colorbrewer.js');
 
   // NVD3
+  drupal_add_css(libraries_get_path('nvd3') . '/nv.d3.css');
   drupal_add_js(libraries_get_path('nvd3') . '/nv.d3.js');
 
   // D3 tooltips

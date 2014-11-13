@@ -36,7 +36,7 @@
 		chart: 'pie',
 
 		width: 820,
-		height: 640,
+		height: 870,
 
 		xAxisLabel: 'Domain',
 		yAxisLabel: 'Range'
@@ -51,7 +51,7 @@
 		    
 		    var chart = nv.models.multiBarChart()
 		    .transitionDuration(350)
-		    .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
+		    .reduceXTicks(false)   //If 'false', every single x-axis tick label will be rendered.
 		    //.rotateLabels(-90)      //Angle to rotate x-axis labels.
 		    .rotateLabels(-35)
 		    .showControls(false)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
@@ -59,6 +59,7 @@
 		    .tooltips(false)
 		    .width(settings.width)
 		    .height(settings.height);
+		    .margin({left: 120, bottom: 360})
 
 		    chart.xAxis
 		    //.axisLabel(settings.xAxisLabel)

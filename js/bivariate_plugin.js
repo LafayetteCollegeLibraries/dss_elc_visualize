@@ -45,7 +45,7 @@
 		chart: 'bar',
 
 		width: 820,
-		height: 640,
+		height: 870,
 
 		xAxisLabel: 'Domain',
 		yAxisLabel: 'Range'
@@ -59,15 +59,17 @@
 		    settings.height -= 60;
 		    
 		    var chart = nv.models.lineChart()
-		    .margin({left: 100, bottom: 120	})  //Adjust chart margins to give the x-axis some breathing room.
+		    .margin({left: 120, bottom: 350	})  //Adjust chart margins to give the x-axis some breathing room.
 		    .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
-		    .transitionDuration(350)  //how fast do you want the lines to transition?
-		    //.rotateLabels(-35)
+		    .transitionDuration(360)  //how fast do you want the lines to transition?
+		    .rotateLabels(-35)
 		    .showLegend(true)       //Show the legend, allowing users to turn on/off line series.
 		    .showYAxis(true)        //Show the y-axis
 		    .showXAxis(true)        //Show the x-axis
 		    
-		    .tooltips(true)
+		    .reduceXTicks(false)
+		    
+		    .tooltips(false)
 		    .isArea(false)
 
 		    .width(settings.width)
@@ -142,7 +144,7 @@
 		    .width(settings.width)
 
  		    .showLegend(true)
-		    .margin({bottom: 120})
+		    .margin({left: 120, bottom: 360})
 		    .tooltips(false)
 
 		    .height(settings.height);

@@ -48,7 +48,10 @@
 		height: 870,
 
 		xAxisLabel: 'Domain',
-		yAxisLabel: 'Range'
+		yAxisLabel: 'Range',
+
+		fieldU: null,
+		fieldV: null
 
 	    }, options);
 	
@@ -74,27 +77,26 @@
 
 		    .width(settings.width)
 		    .height(settings.height);
-		    
+
 		    chart.xAxis
 			//.axisLabel(settings.xAxisLabel)
 			.tickFormat(function(d){
 
-			    return settings.data.labels[d];
-			});
+				return settings.data.labels[d];
+			    });
 
-		    
 		    chart.yAxis
-		    //.axisLabel(settings.yAxisLabel)
-		    .tickFormat(d3.format(',.1f'));
+			//.axisLabel(settings.yAxisLabel)
+			.tickFormat(d3.format(',.1f'));
 
 		    // Could not remove line paths
 		    // Set the area to none
 		    /* chart.lines.isArea(function(d) {
 
-			return true;
-			});
-			    return false;
-		   }); */
+		       return true;
+		       });
+		       return false;
+		       }); */
 
 		    d3.select('#bivariate-visualize')
 			.append('svg')

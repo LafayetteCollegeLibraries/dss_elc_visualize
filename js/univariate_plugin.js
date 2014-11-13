@@ -58,8 +58,8 @@
 		    .groupSpacing(0.1)    //Distance between each group of bars.
 		    .tooltips(false)
 		    .width(settings.width)
-		    .height(settings.height);
-		    .margin({left: 120, bottom: 360})
+		    .height(settings.height)
+		    .margin({left: 120, bottom: 360});
 
 		    chart.xAxis
 		    //.axisLabel(settings.xAxisLabel)

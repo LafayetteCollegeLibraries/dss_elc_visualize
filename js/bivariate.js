@@ -97,7 +97,9 @@
 			    // Refactor
 			    $(this).bivariateRender({
 				        chart: $('#edit-chart').val(),
-					data: response});
+					data: response,
+					fieldU: $('#edit-field-u').val(),
+					fieldV: $('#edit-field-v').val() });
 			});
 		});
 

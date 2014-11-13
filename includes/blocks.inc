@@ -136,7 +136,8 @@ function dss_elc_visualize_node_metrics_form_field_callback($form, $form_state) 
   $form['node_metrics']['field'] = array(
 					 '#title' => t('Field for Analysis'),
 					 '#type' => 'select',
-					 '#default_value' => array_shift($defaultFields),
+					 //'#default_value' => array_shift($defaultFields),
+					 '#default_value' => rewind($defaultFields),
 					 '#options' => $defaultFields,
 					 '#prefix' => '<div id="bundle-fields-div">',
 					 '#suffix' => '</div>',
@@ -175,7 +176,8 @@ function dss_elc_visualize_bivariate_form_field_u_callback($form, $form_state) {
   $form['bivariate']['field_u'] = array(
 					'#title' => t('Field for Analysis'),
 					'#type' => 'select',
-					'#default_value' => array_shift($default_fields_u),
+					//'#default_value' => array_shift($default_fields_u),
+					'#default_value' => rewind($default_fields_u),
 					'#options' => $default_fields_u,
 					'#prefix' => '<div id="bundle-fields-u-div">',
 					'#suffix' => '</div>',
@@ -191,7 +193,8 @@ function dss_elc_visualize_bivariate_form_field_v_callback($form, $form_state) {
   $form['bivariate']['field_v'] = array(
 					'#title' => t('Field for Analysis'),
 					'#type' => 'select',
-					'#default_value' => array_shift($default_fields_v),
+					//'#default_value' => array_shift($default_fields_v),
+					'#default_value' => rewind($default_fields_v),
 					'#options' => $default_fields_v,
 					'#prefix' => '<div id="bundle-fields-v-div">',
 					'#suffix' => '</div>',

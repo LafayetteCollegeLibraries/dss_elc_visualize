@@ -97,7 +97,8 @@
 		    $.post('/network', $('form#dss-elc-visualize-network-form').serialize(), function(data, textStatus) {
 			
 			    // Refactor
-			    $networkMetricsButton.renderNetwork({data: data});
+			    //$networkMetricsButton.renderNetwork({data: data});
+			    $networkMetricsButton.render({data: data});
 			});
 		});
 

@@ -593,6 +593,7 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
  */
 function dss_elc_visualize_network_form($form, &$form_state) {
 
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/network_analysis.js');
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/network_plugin.js');
   drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/network.js');
 

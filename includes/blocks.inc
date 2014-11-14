@@ -270,8 +270,8 @@ function dss_elc_visualize_network_form_field_callback($form, $form_state) {
  */
 function dss_elc_visualize_node_metrics_form($form, &$form_state) {
 
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/node_metrics_plugin.js');
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/node_metrics.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/node_metrics_plugin.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/node_metrics.js');
 
   $form['node_metrics'] = array(
 				'#prefix' => '<div id="node-metrics-visualize"></div>',
@@ -325,8 +325,8 @@ function dss_elc_visualize_node_metrics_form($form, &$form_state) {
  */
 function dss_elc_visualize_univariate_form($form, &$form_state) {
 
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate_plugin.js');
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/univariate_plugin.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/univariate.js');
 
   drupal_add_css(drupal_get_path('module', 'dss_elc_visualize') . '/css/dss_elc_visualize.css');
 
@@ -403,8 +403,8 @@ function dss_elc_visualize_univariate_form($form, &$form_state) {
  */
 function dss_elc_visualize_bivariate_form($form, &$form_state) {
 
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/bivariate_plugin.js');
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/bivariate.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/bivariate_plugin.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/bivariate.js');
 
   drupal_add_css(drupal_get_path('module', 'dss_elc_visualize') . '/css/dss_elc_visualize.css');
 
@@ -593,8 +593,8 @@ function dss_elc_visualize_bivariate_form($form, &$form_state) {
  */
 function dss_elc_visualize_network_form($form, &$form_state) {
 
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/network_plugin.js');
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/network.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/network_plugin.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/network.js');
 
   $form['network_metrics'] = array(
 				'#type' => 'container',

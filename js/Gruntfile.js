@@ -27,9 +27,10 @@ module.exports = function(grunt) {
 	    },
 	    jshint: {
 		options: {
-		    smarttabs: true
+		    smarttabs: true,
+		    jquery: true
 		},
-		all: ['Gruntfile.js', '*.js', 'test/**/*.js']
+		all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
 	    }
 	});
 

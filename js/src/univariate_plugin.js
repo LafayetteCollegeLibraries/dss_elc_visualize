@@ -4,9 +4,14 @@
  * A jQuery plug-in for the rendering of univariate analyses
  *
  */
-'use strict';
+
+// JSHint
+var d3 = d3 || {};
+var nv = nv || {};
 
 (function($) {
+
+    'use strict';
 
     $.fn.univariateInit = function(options) {
 

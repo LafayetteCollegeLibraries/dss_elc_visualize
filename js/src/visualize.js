@@ -1,13 +1,16 @@
-
 /**
  * Javascript functionality for the data visualization layer of the VRE
  * Refactor into the "dss_elc" JavaScript Module
  * @author griffinj@lafayette.edu
  *
  */
-'use strict';
+
+// JSHint
+var Drupal = Drupal || {};
 
 (function($, Drupal) {
+
+    "use strict";
 
     Drupal.behaviors.dssElcPersRelsVisualize = {
 

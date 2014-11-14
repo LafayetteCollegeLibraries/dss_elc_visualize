@@ -5,9 +5,13 @@
  *
  */
 
-'use strict';
+// JSHint
+var d3 = d3 || {};
+var nv = nv || {};
 
 (function($) {
+
+    'use strict';
 
     $.fn.bivariateInit = function(options) {
 
@@ -62,7 +66,7 @@
 		    settings.height -= 60;
 		    
 		    var chart = nv.models.lineChart()
-		    .margin({left: 120, bottom: 350	})  //Adjust chart margins to give the x-axis some breathing room.
+		    .margin({left: 120, bottom: 180	})  //Adjust chart margins to give the x-axis some breathing room.
 		    .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
 		    .transitionDuration(360)  //how fast do you want the lines to transition?
 		    .rotateLabels(-35)
@@ -146,7 +150,7 @@
 		    .width(settings.width)
 
  		    .showLegend(true)
-		    .margin({left: 120, bottom: 360})
+		    .margin({left: 120, bottom: 190})
 		    .tooltips(false)
 
 		    .height(settings.height);

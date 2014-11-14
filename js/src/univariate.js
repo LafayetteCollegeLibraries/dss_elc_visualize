@@ -1,12 +1,15 @@
-
 /**
  * Widget for visualizing quantitative, univariate relationships using a bar chart
  * @author griffinj@lafayette.edu
  *
  */
-'use strict';
+
+// JSHint
+var Drupal = Drupal || {};
 
 (function($, Drupal) {
+
+    'use strict';
 
     Drupal.behaviors.dssElcVisualizeUnivariate = {
 

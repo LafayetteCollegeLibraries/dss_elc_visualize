@@ -1,11 +1,15 @@
-
 /**
  * Widget for visualizing quantitative, bivariate relationships using a bar chart
  * @author griffinj@lafayette.edu
  *
  */
 
+// JSHint
+var Drupal = Drupal || {};
+
 (function($, Drupal) {
+
+    "use strict";
 	
     Drupal.behaviors.dssElcVisualizeBivariate = {
 

@@ -5,9 +5,12 @@
  *
  */
 
-'use strict';
+// JSHint
+var d3 = d3 || {};
 
 (function($) {
+
+    'use strict';
 
     $.fn.renderScatterplot = function(options) {
 

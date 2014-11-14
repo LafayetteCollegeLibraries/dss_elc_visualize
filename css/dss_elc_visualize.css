@@ -43,3 +43,12 @@
 
     background-color: #ffffff;
 }
+
+/*
+ * Work-around
+ * @todo Refactor
+ */
+#network-visualize {
+
+    width: 800px;
+}

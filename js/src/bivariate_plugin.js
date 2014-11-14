@@ -49,7 +49,7 @@ var nv = nv || {};
 		chart: 'bar',
 
 		width: 820,
-		height: 870,
+		height: 470,
 
 		xAxisLabel: 'Domain',
 		yAxisLabel: 'Range',
@@ -150,7 +150,7 @@ var nv = nv || {};
 		    .width(settings.width)
 
  		    .showLegend(true)
-		    .margin({left: 120, bottom: 190})
+		    .margin({left: 120, bottom: 180})
 		    .tooltips(false)
 
 		    .height(settings.height);

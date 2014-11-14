@@ -49,7 +49,7 @@ var nv = nv || {};
 		chart: 'bar',
 
 		width: 820,
-		height: 470,
+		height: 700,
 
 		xAxisLabel: 'Domain',
 		yAxisLabel: 'Range',

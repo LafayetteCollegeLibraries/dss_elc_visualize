@@ -275,7 +275,7 @@ function dss_elc_views_post_render(&$view, &$output, &$cache) {
 
   case 'items':
 
-    drupal_add_js(drupal_get_path('module', 'dss_elc') . '/js/qtyRelsVisualize.js');
+    drupal_add_js(drupal_get_path('module', 'dss_elc') . '/js/build/qtyRelsVisualize.js');
     drupal_add_js(array('dssElcQtyRelsVisualize' => array(
 							  'contentTypes' => array('book', 'periodical', 'item'),
 							  'field' => 'field_item_format',
@@ -307,14 +307,14 @@ function dss_elc_visualize_preprocess_page(&$variables) {
   drupal_add_js("//labratrevenge.com/d3-tip/javascripts/d3.tip.min.js", 'external');
 
   // Module-specific functionality
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/grouped_bar_chart.js');
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/scatterplot.js');
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/linear_chart.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/grouped_bar_chart.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/scatterplot.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/linear_chart.js');
 
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/q_analysis.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/q_analysis.js');
  
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate_plugin.js');
-  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/univariate.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/univariate_plugin.js');
+  drupal_add_js(drupal_get_path('module', 'dss_elc_visualize') . '/js/build/univariate.js');
   
   // Content Node specific theming
   // (i. e. Integrating univariate metrics for certain Node templates)
@@ -324,7 +324,7 @@ function dss_elc_visualize_preprocess_page(&$variables) {
       
     case 'human':
 
-      drupal_add_js(drupal_get_path('module', 'dss_elc') . '/js/visualize.js');
+      drupal_add_js(drupal_get_path('module', 'dss_elc') . '/js/build/visualize.js');
       drupal_add_js(array('dssElcPersRelsVisualize' => array('nid' => $variables['node']->nid)), 'setting');
       drupal_add_js(array('dssElcBibRelsVisualize' => array('nid' => $variables['node']->nid)), 'setting');
       break;

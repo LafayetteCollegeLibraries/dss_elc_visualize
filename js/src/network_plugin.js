@@ -27,151 +27,19 @@
 	$(options.target).empty();
 	var vis = d3.select(options.target).append("svg:svg").attr("width", width).attr("height", height);
 
-	// Fixtures
-
-	/*
-	var personNodes = [
-
-			   // Persons
-    {label: 'Bachman, Abraham', type: 'human'},
-    {label: 'Arndt, Jacob', type: 'human'},
-    {label: 'Hassler, George', type: 'human'},
-    {label: 'Barnet, Eliza', type: 'human'},
-    {label: 'Dutton, William J.', type: 'human'},
-    {label: 'Deshler, George W. ', type: 'human'} ];
-
-	var bibItemNodes = [
-
-			    // Bib. Items
-    {label: 'book1', type: 'book'},
-    {label: 'book2', type: 'book'},
-    {label: 'periodical1', type: 'periodical'},
-    {label: 'periodical2', type: 'periodical'},
-    {label: 'artifact1', type: 'artifact'},
-    {label: 'artifact2', type: 'artifact'} ];
-
-	var nodes = [];
-
-	// Refactor
-	if(options.displayPersons) {
-
-	    nodes = nodes.concat(personNodes);
-	}
-	if(options.displayBibItems) {
-
-	    nodes = nodes.concat(bibItemNodes);
-	}
-
-	var personLinks = [
-
-    // Personal relationships
-    {source: 0,
-     target: 1,
-     weight: 1,
-     type: 'representative'},
-    {source: 1,
-     target: 2,
-     weight: 1,
-     type: 'shareholder'},
-    {source: 2,
-     target: 3,
-     weight: 1,
-     type: 'representative'},
-    {source: 2,
-     target: 4,
-     weight: 1,
-     type: 'parentOf'},
-    {source: 4,
-     target: 5,
-     weight: 1,
-     type: 'employeeOf'} ];
-
-	var bibItemLinks = [
-
-    // Bibliographic relationships
-    {source: 0,
-     target: 6,
-     weight: 1,
-     type: 'borrowedFor'},
-    {source: 1,
-     target: 6,
-     weight: 1,
-     type: 'borrowedFor'},
-    {source: 2,
-     target: 8,
-     weight: 1,
-     type: 'borrowedBy'},
-    {source: 2,
-     target: 9,
-     weight: 1,
-     type: 'borrowedFor'} ];
-	*/
-
-    /**
-     * Organizational membership is an anomalous case
-     * Nodes for organizations (i. e. families, churches, businesses...) are not, themselves, visualized
-     * Instead, sets of links are generated with unique types generated for the organization
-     *
-     * For every organization, an arbitrary node be selected for the construction of paths
-     * Whether or not this node should be arbitrarily chosen carries implications for the data as JSON/CSV/TSV
-     *
-     */
-
-	/*
-	var orgLinks = [
-
-			// Organizational relationships
-    {source: 4,
-     target: 5,
-     weight: 1,
-     type: 'businessAMembership'},
-    {source: 4,
-     target: 4,
-     weight: 1,
-     type: 'familyAMembership'},
-    {source: 0,
-     target: 3,
-     weight: 1,
-     type: 'churchAMembership'},
-    {source: 1,
-     target: 3,
-     weight: 1,
-     type: 'churchAMembership'} ];
-
-	var links = [];
-
-	// Refactor
-	if(options.displayPersons) {
-
-	    links = links.concat(personLinks);
-	}
-	if(options.displayBibItems) {
-
-	    links = links.concat(bibItemLinks);
-	}
-	if(options.displayOrgs) {
-	    
-	    links = links.concat(orgLinks);
-	}
-	*/
+	/**
+	 * Organizational membership is an anomalous case
+	 * Nodes for organizations (i. e. families, churches, businesses...) are not, themselves, visualized
+	 * Instead, sets of links are generated with unique types generated for the organization
+	 *
+	 * For every organization, an arbitrary node be selected for the construction of paths
+	 * Whether or not this node should be arbitrarily chosen carries implications for the data as JSON/CSV/TSV
+	 *
+	 */
 
 	/**
 	 * For testing
 	 */
-
-	/*
-	var testingOptions = {};
-	testingOptions.data = {"data":{
-		"nodes":[
-	{"label":"Arndt, George Washington","type":"human"},
-	{"label":"Fashionable follies","type":"book"},
-	{"label":"Account of expeditions to the sources of the Mississippi","type":"book"},{"label":"Memoirs of the war in the Southern department of the United States","type":"book"},{"label":"Spectator","type":"book"},{"label":"Narrative of the extraordinary adventures and sufferings by shipwreck","type":"book"},{"label":"Select reviews of literature","type":"book"},{"label":"Miscellaneous works","type":"book"},{"label":"History of the reign of Emperor Charles V","type":"book"},{"label":"Travels in Switzerland and in the country of the Grisons","type":"book"},{"label":"American museum","type":"book"},{"label":"Historical, geographical, and philosophical view of the Chinese empire","type":"book"},{"label":"Zeluco","type":"book"},{"label":"Female biography","type":"book"},{"label":"Law of nations","type":"book"},{"label":"Tales of real life","type":"book"},{"label":"Kelroy","type":"book"},{"label":"Maid of the hamlet","type":"book"},{"label":"Wonders of the little world","type":"book"}],
-
-		"links":[{"source":0,"target":1,"weight":1,"type":"borrowedBy"},{"source":0,"target":2,"weight":1,"type":"borrowedBy"},{"source":0,"target":3,"weight":1,"type":"borrowedBy"},{"source":0,"target":4,"weight":1,"type":"borrowedBy"},{"source":0,"target":5,"weight":1,"type":"borrowedBy"},{"source":0,"target":6,"weight":7,"type":"borrowedBy"},{"source":0,"target":7,"weight":1,"type":"borrowedBy"},{"source":0,"target":8,"weight":3,"type":"borrowedBy"},{"source":0,"target":9,"weight":3,"type":"borrowedBy"},{"source":0,"target":10,"weight":1,"type":"borrowedBy"},{"source":0,"target":11,"weight":1,"type":"borrowedBy"},{"source":0,"target":12,"weight":1,"type":"borrowedBy"},{"source":0,"target":13,"weight":1,"type":"borrowedBy"},{"source":0,"target":14,"weight":1,"type":"borrowedBy"},{"source":0,"target":15,"weight":1,"type":"borrowedBy"},{"source":0,"target":16,"weight":1,"type":"borrowedBy"},{"source":0,"target":17,"weight":1,"type":"borrowedBy"},{"source":0,"target":18,"weight":1,"type":"borrowedBy"}]},"metadata":[]};
-
-	nodes = options.data.data.nodes;
-	links = options.data.data.links;
-	*/
 
 	var nodes = options.data.nodes;
 	var links = options.data.links;
@@ -195,11 +63,11 @@
 	var labelAnchorLinks = [];
 
 	/*
-	  	.linkStrength(function(link) {
+	  .linkStrength(function(link) {
 
-		return link.weight * 10
-		//return link.weight * 5
-	    })
+	  return link.weight * 10
+	  //return link.weight * 5
+	  })
 	*/
 
 	var force = d3.layout.force()
@@ -221,7 +89,16 @@
 	 * Force for the actual labels
 	 *
 	 */
-	var force2 = d3.layout.force().nodes(labelAnchors).links(labelAnchorLinks).gravity(0).linkDistance(0).linkStrength(8).charge(-100).size([width, height]);
+	var force2 = d3.layout
+	.force()
+	.nodes(labelAnchors)
+	.links(labelAnchorLinks)
+	.gravity(0)
+	.linkDistance(0)
+	.linkStrength(8)
+	.charge(-100)
+	.size([width, height]);
+
 	force2.start();
 
 	/**
@@ -234,13 +111,17 @@
 		return 'link link-' + d.type;
 	    }).style("stroke", function(d) {
 
-		return linkColors(d.type);
-	    });
+		    return linkColors(d.type);
+		});
 
 	/**
 	 * Render the nodes for the directed graph
 	 */
-	var node = vis.selectAll("g.node").data(force.nodes()).enter().append("svg:g").attr("class", "node");
+	var node = vis.selectAll("g.node")
+	.data(force.nodes())
+	.enter()
+	.append("svg:g")
+	.attr("class", "node");
 
 	// Render the nodes
 	node.append("svg:circle")
@@ -266,8 +147,9 @@
 	// ...and append the text...
 	node.append("svg:text").text(function(d) {
 
-		return d.label
-		    })
+		//return d.name;
+		return null;
+	    })
 	.attr("x", 4)
 	.attr("y", -3)
 	.style("fill", "#555")
@@ -295,17 +177,22 @@
 
 	/**
 	 * Link animation
+	 *
 	 */
 	var updateLink = function() {
-	    this.attr("x1", function(d) {
+	    this
+	    .attr("x1", function(d) {
 		    return d.source.x;
-		}).attr("y1", function(d) {
-			return d.source.y;
-		    }).attr("x2", function(d) {
-			    return d.target.x;
-			}).attr("y2", function(d) {
-				return d.target.y;
-			    });
+		})
+	    .attr("y1", function(d) {
+		    return d.source.y;
+		})
+	    .attr("x2", function(d) {
+		    return d.target.x;
+		})
+	    .attr("y2", function(d) {
+		    return d.target.y;
+		});
 	};
 
 	/**
@@ -352,13 +239,18 @@
 		
 	    });
 
-	// This must remain a constant mapping for RDF types
+	/**
+	 * Legend Labels
+	 * @todo Refactor for a Drupal UI component
+	 *
+	 */
 	legendLabels = {
 
 	    human: 'Person',
-
+	    root: 'Root Nodes',
 	    Representative: 'Representative',
 	    Shareholder: 'Shareholder',
+	    Author: 'Author',
 
 	    /**
 	     * Fixture data for socioeconomic relationships
@@ -381,6 +273,8 @@
 	     */
 	    Church: 'Church',
 
+	    manifestation: 'Item',
+	    item: 'Item',
 	    book: 'Book',
 	    periodical: 'Periodical',
 	    artifact: 'Other Item',
@@ -475,7 +369,7 @@
 	.attr("dy", ".35em")
 	.style("text-anchor", "end")
 	.text(function(d) {
-
+		
 		return legendLabels[d];
 	    });
 

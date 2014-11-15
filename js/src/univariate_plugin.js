@@ -64,7 +64,7 @@ var nv = nv || {};
 		    .tooltips(false)
 		    .width(settings.width)
 		    .height(settings.height)
-		    .margin({left: 100, bottom: 130});
+		    .margin({left: 100, bottom: 100});
 
 		    chart.xAxis
 		    //.axisLabel(settings.xAxisLabel)

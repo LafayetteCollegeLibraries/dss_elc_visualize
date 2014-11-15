@@ -21,7 +21,7 @@ var NetworkAnalysis = function(options) {
 	    displayBibItems: true,
 	    displayOrgs: true,
 	    variables: [],
-	    width: 700,
+	    width: 680,
 	    height: 700,
 	    labelDistance: 0
 	    

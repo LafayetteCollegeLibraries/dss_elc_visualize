@@ -26,7 +26,7 @@ var Drupal = Drupal || {};
 		    .empty()
 		    .toggleClass('visualize-loading');
 
-		    $fieldSelect = $('form#dss-elc-visualize-bivariate-form').find('select#edit-field');
+		    var $fieldSelect = $('form#dss-elc-visualize-bivariate-form').find('select#edit-field');
 		    if(!$fieldSelect.length) {
 
 			$fieldSelect = $('div#bundle-fields-div div div select.form-select');

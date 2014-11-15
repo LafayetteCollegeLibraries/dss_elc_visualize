@@ -22,7 +22,7 @@ var NetworkAnalysis = function(options) {
 	    displayOrgs: true,
 	    variables: [],
 	    width: 700,
-	    height: 600,
+	    height: 700,
 	    labelDistance: 0
 	    
 	}, options);

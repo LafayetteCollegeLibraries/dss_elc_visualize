@@ -161,7 +161,7 @@ function dss_elc_visualize_univariate_form_field_callback($form, $form_state) {
   $form['univariate']['field'] = array(
 				       '#title' => t('Field for Analysis'),
 				       '#type' => 'select',
-				       '#default_value' => array_shift($defaultFields),
+				       '#default_value' => rewind($defaultFields),
 				       '#options' => $defaultFields,
 				       '#prefix' => '<div id="bundle-fields-div">',
 				       '#suffix' => '</div>',

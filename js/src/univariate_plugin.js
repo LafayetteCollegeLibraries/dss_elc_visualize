@@ -40,8 +40,8 @@ var nv = nv || {};
 		
 		chart: 'pie',
 
-		width: 820,
-		height: 870,
+		width: 700,
+		height: 600,
 
 		xAxisLabel: 'Domain',
 		yAxisLabel: 'Range'
@@ -64,7 +64,7 @@ var nv = nv || {};
 		    .tooltips(false)
 		    .width(settings.width)
 		    .height(settings.height)
-		    .margin({left: 120, bottom: 150});
+		    .margin({left: 100, bottom: 130});
 
 		    chart.xAxis
 		    //.axisLabel(settings.xAxisLabel)

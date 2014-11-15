@@ -66,7 +66,7 @@ var nv = nv || {};
 		    settings.height -= 60;
 		    
 		    var chart = nv.models.lineChart()
-		    .margin({left: 100, bottom: 150	})  //Adjust chart margins to give the x-axis some breathing room.
+		    .margin({left: 100, bottom: 100	})  //Adjust chart margins to give the x-axis some breathing room.
 		    .useInteractiveGuideline(true)  //We want nice looking tooltips and a guideline!
 		    .transitionDuration(360)  //how fast do you want the lines to transition?
 		    .rotateLabels(-35)
@@ -150,7 +150,7 @@ var nv = nv || {};
 		    .width(settings.width)
 
  		    .showLegend(true)
-		    .margin({left: 100, bottom: 150})
+		    .margin({left: 100, bottom: 100})
 		    .tooltips(false)
 
 		    .height(settings.height);

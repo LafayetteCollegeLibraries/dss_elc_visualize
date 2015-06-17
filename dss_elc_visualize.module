@@ -11,8 +11,10 @@ require_once dirname(__FILE__) . '/includes/blocks.inc';
 function dss_elc_visualize_get_bundles() {
 
   return array('human' => 'People',
+
 	       //'book' => 'Books',
 	       //'periodical' => 'Periodicals',
+
 	       'item' => 'Items',
 	       'loan' => 'Loans',
 	       );

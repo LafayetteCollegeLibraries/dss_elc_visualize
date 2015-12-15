@@ -21,6 +21,16 @@ function dss_elc_visualize_get_bundles() {
 }
 
 /**
+ * Implements callback_queue_worker().
+ * A callback for (re)caching the metrics for the visualization interfaces
+ * 
+ */
+function dss_elc_metrics_cache($cache_update) {
+
+  drush_dss_elc_visualize_cache();
+}
+
+/**
  *
  * Retrieve the fields for a bundle being visualized
  * Integrate with an administrative menu
@@ -29,10 +39,10 @@ function dss_elc_visualize_get_bundles() {
 function dss_elc_visualize_get_fields($bundle) {
 
   $fields = array('human' => array('field_person_type' => 'Role',
-				   'field_human_gender' => 'Gender',
-				   'field_human_occupation' => 'Occupation',
-				   'field_person_membership' => 'Membership',
-				   'field_person_location' => 'Location'
+				   //'field_human_gender' => 'Gender', // Disabled in response to EDDC-607
+				   //'field_human_occupation' => 'Occupation', // Disabled in response to EDDC-607
+				   //'field_person_membership' => 'Membership', // Disabled in response to EDDC-607
+				   //'field_person_location' => 'Location' // Disabled in response to EDDC-607
 				   ),
 
 		  'book' => array('field_artifact_was_authored_by' => 'Authors',
@@ -48,7 +58,7 @@ function dss_elc_visualize_get_fields($bundle) {
 		  'item' => array('field_artifact_was_authored_by' => 'Authors',
 				  'field_item_subject' => 'Subject',
 				  'field_item_format' => 'Format',
-				  'type' => 'Type'
+				  //'type' => 'Type' // Disabled in response to EDDC-607
 				  //'related_manifestation_title' => 'Item Collection Title', //! This addresses user story EDDC-382
 				  ),
 

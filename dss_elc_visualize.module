@@ -59,6 +59,7 @@ function dss_elc_visualize_get_fields($bundle) {
 				  'field_item_subject' => 'Subject',
 				  'field_item_format' => 'Format',
 				  //'type' => 'Type' // Disabled in response to EDDC-607
+				  'field_book_or_periodical' => 'Type',
 				  //'related_manifestation_title' => 'Item Collection Title', //! This addresses user story EDDC-382
 				  ),
 
